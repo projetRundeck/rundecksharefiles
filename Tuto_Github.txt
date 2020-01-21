@@ -1,0 +1,41 @@
+
+############## Author : AISSI AYOUB
+############## Date   : 21 janv. 2020
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+############## TUTO GITHUB #################
+
+############## Ajouter de nouveaux fichiers dans le repository #############
+
+> git clone https://github.com/projetRundeck/rundecksharefiles.git
+
+> cd rundecksharefiles
+
+> Déplacez vos fichiers dans ce répertoire
+
+> git add file1 file 2 ... ( si plusieurs fichiers ou que vvous voulez tout ajouter "git add ." )
+
+> git commit -m "description du commit exemeple : Test ajout de fichiers"
+
+> git push origin master
+
+> entrez votre username et votre mot de passe
+
+############## Mettre à jour le repository que vous avez sur votre machine ########################
+
+> cd rundecksharefiles       // Placez vous dans le repository
+
+> git pull origin master    
+
+Vous aurez maintenant votre repository à jour 
+
+######################### Supprimer un fichier du repository #########################
+
+> git checkout master
+
+> git rm -r file1 file 2 .. ( sinon  si vous voulez supprimer  un répertoire : git rm -r folder_name )
+
+> git commit -m "description de la tâche"   //Ça permet de savoir ce qu'on a fait au cours du projet pour ne pas se prerdre dans tout les commits qu'on fait ;) 
+
+> git push origin master
+
+#######################################################################################
