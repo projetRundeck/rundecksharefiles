@@ -1,0 +1,66 @@
+PROJET RUNDECK : Journal de bord
+
+VM rundeck :
+
+IP: 172.28.128.5
+OS : CentOS
+
+20/01/2020 	Mise à jour VM
+20/01/2020	Installation Vim
+20/01/2020	Test ping machine
+20/01/2020	Installation et démarrage de Rundeck
+20/01/2020	Ping vers VM web OK
+20/01/2020	Ping vers VM zfs OK
+20/01/2020	Ping vers VM mail OK
+20/01/2020	Ping depuis machine externe vers VM Rundeck
+
+VM zfs :
+
+IP: 172.28.128.2
+OS : Debina 10
+
+20/01/2020 	Mise à jour VM
+20/01/2020	Installation Vim
+20/01/2020	Ping vers VM Rundeck OK
+
+VM mail :
+
+IP: 172.28.128.3
+OS : Debian 10
+20/01/2020 	Mise à jour VM
+20/01/2020	Installation Vim
+20/01/2020 	Installation serveur mail PostFix
+20/01/2020	Ping vers VM Rundeck OK
+
+VM web :
+
+IP: 172.28.128.4
+OS: Debian 10
+
+20/01/2020 	Mise à jour VM
+20/01/2020	Installation Vim
+20/01/2020	Installation serveur web Apache2
+20/01/2020	Ping vers VM Rundeck OK
+
+Gestion de projet :
+Trello : https://trello.com/b/hg0pZAjQ/gestion-projet-rundeck
+
+Jenkins :
+
+- Construit avec Java
+- Free Open Source
+- Support dedié pour les pipelines
+- Manque de support en général
+- Problèmes de compatibilités au niveau des plugins
+- Ensemble riche de plugins (environs 1500)
+- Utilisé par des grandes entrepises comme Facebook, Netflix, e-Bay, LinkedIn, Twitch, Docker etc...
+
+Outil en Open Source d'intégration continue.
+Peut d'interfacer avec des systèmes de gestion de versions tels que CVS, Git ou même Subversion
+Execute des projets basés sur Apache Ant, Apache Maven & scripts arbitraires
+1ere version en 2011
+Licence MIT
+Fonctionne sur une machine virtuelle Java
+Developper à l'orignine comme étant le projet Hudson (à la base ce sont 2 projets différents)
+
+Buildbot :
