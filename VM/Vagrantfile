@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
-    vb.cpus = 1
+    vb.cpus = 2
   end
 
   config.vm.define "mail" do |b|
@@ -14,14 +14,14 @@ Vagrant.configure("2") do |config|
   config.vm.define "web" do |b|
     b.vm.box = "debian/buster64"
     b.vm.hostname = "web"
-    b.vm.network "forwarded_port", guest: 80, host: 1234
+    b.vm.network "forwarded_port", guest: 80, host: 8080
     b.vm.network "private_network", ip: "172.28.128.3"
     b.vm.provision "shell", path: "provision.sh", args: "web"
   end
   
-  config.vm.define "zfs" do |b|
+  config.vm.define "nfs" do |b|
     b.vm.box = "debian/buster64"
-    b.vm.hostname = "zfs"
+    b.vm.hostname = "nfs"
     b.vm.network "private_network", ip: "172.28.128.2"
     b.vm.provision "shell", path: "provision.sh", args: "zfs"
   end
