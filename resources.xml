@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <node name="localhost" 
+	description="Rundeck server node" 
+	tags="" 
+	hostname="localhost" 
+	osArch="amd64" 
+	osFamily="unix" 
+	osName="Linux" 
+	osVersion="2.6.21.7-2.fc8xen" 
+	username="rundeck"
+  />
+  <node name="mail" 
+	description="Serveur mail" 
+	tags="mail" 
+	hostname="172.28.128.4" 
+	osArch="amd64" 
+	osFamily="unix" 
+	osName="Debian GNU/Linux" 
+	osVersion="10.2" 
+	username="root"
+  />
+    <node name="web" 
+	description="Serveur web" 
+	tags="web" 
+	hostname="172.28.128.3" 
+	osArch="amd64" 
+	osFamily="unix" 
+	osName="Debian GNU/Linux" 
+	osVersion="10.2" 
+	username="root"
+  />
+
+  <node name="nfs" 
+	description="NFS" 
+	tags="nfs" 
+	hostname="172.28.128.2" 
+	osArch="amd64" 
+	osFamily="unix" 
+	osName="Debian GNU/Linux" 
+	osVersion="10.2" 
+	username="root"
+  />
+</project>
