@@ -17,10 +17,12 @@ fi
 if [ "$VM" = "mail" ];then
     sudo apt-get -y update
     sudo apt-get -y install vim
-    sudo apt-get -y install postfix sasl2-bin
-    sudo apt-get -y install nfs-common
+    sudo apt-get -y install nano
     sudo debconf-set-selections <<< "postfix postfix/mailname string localhost"
     sudo debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+    sudo apt-get -y install postfix sasl2-bin
+    sudo apt-get -y install nfs-common
+
 fi
 
 if [ "$VM" = "web" ];then
