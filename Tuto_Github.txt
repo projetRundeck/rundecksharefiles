@@ -39,3 +39,9 @@ Vous aurez maintenant votre repository à jour
 > git push origin master
 
 #######################################################################################
+
+En cas de problèmes avec git pull pour mettre à jour votre repository lancez la commance suivante :
+
+> git reset --hard HEAD && git checkout master && git pull
+
+ 
