@@ -1,0 +1,113 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usetheme{Singapore}
+\setbeamertemplate{navigation symbols}{\insertframenumber/\inserttotalframenumber}
+
+\title{Projet tuteuré Rundeck}
+\author{HEPPNER Tristan - ROYER Grégory -
+AISSI Ayoub - TORRES Yannis }
+\date{Janvier 2020}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Sommaire}
+    \begin{itemize}
+        \item Présentation du projet
+        \pause
+        \item Présentation de Rundeck
+        \pause
+        \item Avancement du projet
+            \begin{itemize}
+                \item Infrastructure
+                \item Installation des VMs
+                \item Configuration de Rundeck
+            \end{itemize}{}
+        \pause
+        \item Conclusion
+    \end{itemize}{}
+    
+\end{frame}
+
+\begin{frame}{Présentation du projet}
+    
+\end{frame}
+
+\begin{frame}{Présentation de Rundeck}
+    
+\end{frame}
+
+\begin{frame}{Avancement du projet - Infrastructure}
+
+\begin{itemize}
+    \item Simulation avec Vagrant :
+        \begin{itemize}
+            \item VM Vagrant \underline{rundeck} avec Rundeck installé
+            \item VM Vagrant \underline{web} avec un serveur web apache installé
+            \item VM Vagrant \underline{mail} avec un serveur PostFix installé
+            \item VM Vagrant \underline{nfs} avec un montage nfs
+        \end{itemize}
+    \item Réseau privé avec IP fixe
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Avancement du projet - Installation VM rundeck}
+     \begin{itemize}
+         \item OS VM rundeck != OS VM mail,web,nfs
+         \item Utilitaire d'édition (Vim)
+         \item Installation de la version 1.8 de Java
+         \item Installation de la dernière version de Rundeck
+     \end{itemize}
+     
+\end{frame}
+
+\begin{frame}{Avancement du projet - Installation VM rundeck}
+     Adresse IP : 172.28.128.5
+     \begin{itemize}
+         \item yum install java-1.8.0 -y
+         \item rpm -Uvh https://repo.rundeck.org/latest.rpm
+         \item yum install rundeck -y
+     \end{itemize}
+\end{frame}
+
+\begin{frame}{Avancement du projet - Installation VM mail}
+    Adresse IP : 172.28.128.4
+    \begin{itemize}
+        \item Utilitaire d'édition (Vim)
+        \item Installation d'un serveur mail PostFix
+    \end{itemize}
+\end{frame}{}
+
+\begin{frame}{Avancement du projet - Installation VM web}
+    Adresse IP : 172.28.128.3
+    \begin{itemize}
+        \item Utilitaire d'édition (Vim)
+        \item Installation d'un serveur web Apache2
+    \end{itemize}
+\end{frame}{}
+
+\begin{frame}{Avancement du projet - Installation VM nfs}
+    Adresse IP : 172.28.128.2
+    \begin{itemize}
+        \item Utilitaire d'édition (Vim)
+        \item Installation de NFS
+    \end{itemize}
+\end{frame}{}
+
+\begin{frame}{Avancement du projet - Configuration de Rundeck}
+    Chemins de fichiers :
+    \begin{itemize}
+        \item /etc/rundeck/
+        \item /var/lib/rundeck/projects/ProjectName/etc/
+        \item Fichiers : rundeck-config.properties, framework.properties, resources.xml
+        \item Configuration des clés SSH
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    
+\end{frame}
+
+\end{document}

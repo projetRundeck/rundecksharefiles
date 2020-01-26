@@ -1,0 +1,111 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{Rapport Projet Tuteuré Rundeck}
+\author{HEPPNER Tristan / ROYER Grégory
+\\
+TORRES Yanis / AISSI Ayoub }
+\date{Janvier 2020}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Remerciements}
+Nous remercions l’ensemble des membres du jury (professeurs  et  intervenants) pour leurs précieux enseignements, leurs conseils avisés ainsi que pour leur patience.
+\vspace{0.2cm}
+\\
+Mention  spéciale  pour  notre  tuteur,  Monsieur Stéphane  Casset,associé-gérant  de l'entreprise Logidee,qui n’a pas hésité à donner de son temps pour nous aider à avancer sur le projet.
+\vspace{0.2cm}
+\\
+Merci  à  Monsieur Lucas  Nussbaum,  Debian  Project  Leader  (DPL),  maître  de conférences à l'Université de Lorraine et chercheur auprès du laboratoire LORIA, pour nous avoir donné l’envie d’aller plus loin dans l’univers du monde libre.
+\vspace{0.2cm}
+\\
+Que cette licence ASRALL(Administration de Systèmes, Réseaux et Applications à base  de  Logiciels  Libres)  puisse  perdurer  dans  le  temps,  et  toujours  apporter  les connaissances indispensables dont nous, les élèves et futurs administrateurs, avons besoin. Un grand merci à Monsieur Philippe Dosch, enseignant et responsable de la licence, qui a su, quand il le fallait, nous écouter et nous donner les indications nous permettant de prendre la bonne direction.*
+
+\newpage
+
+\section{Présentation du projet}
+L'objectif de ce projet tuteuré est de créer une plate forme complète de test avec un service Rundeck et de pouvoir proposer un système « clé en mains » aux utilisateurs qui souhaitent lancer une copie de leur données HOME vers un stockage “froid” ou de faire de l’édition web en passant par un environnement de développement.
+
+\section{Répartition des taches}
+\section{Rundeck}
+
+\subsection{Présentation}
+
+Rundeck est un logiciel libre permettant l'automatisation d'administration de serveurs (GNU/Linux, Mac OS X et Windows) via la création de jobs ou tâches. Il développé en Java et est distribué sous la licence Apache Software 2.0
+\\
+Actuellement, le code source de Rundeck est disponible sur la plate-forme GitHub. Ce projet est en libre accès et permet donc aux utilisateurs de contribuer à son développement.
+\\
+Rundeck peut être installé n'importe quelle distributions de Linux, que ce soit \underline{Debian}, \underline{Ubuntu}, \underline{Arch} ou \underline{CentOS}. 
+\\
+Cependant, Rundeck est plus facile à manipuler lors qu'il se trouve sur CentOS. En effet, CentOS est réputé pour être principalement destiné aux serveurs web. Rundeck, fournissant une base de données ainsi qu'une interface web, fonctionne et se manipule beaucoup mieux sur CentOS.
+
+\subsection{Fonctionnement}
+Rundeck se présente sous la forme d'une interface WEB, disponible à l'adresse \underline{http://localhost:4440}. Cette adresse est l'adresse définit par défaut par Rundeck et peut être modifié par l'utilisateur.
+\\
+Cette interface permet à l'utilisateur d'enregistrer les machines d'un parc, exécuter des commandes via SSH mais également programmer des "jobs", c'est à dire des scripts qui exécuteront des commandes, par exemple, programmer mensuellement un job pour une vérification des mises à jours du système. 
+\\
+Toutefois, une interface en ligne de commande (CLI) est également disponible est fonctionne de la même manière que l'interface graphique.
+
+\subsection{Fonctionnalités}
+
+\subsubsection{Nodes (serveurs)}
+\subsubsection{Taches simple}
+\subsubsection{Jobs}
+
+\subsection{Concurrence}
+\subsubsection{Jenkins}
+\subsubsection{Buildbot}
+
+\section{Mise en place de Rundeck}
+
+\subsection{Environnement de travail}
+
+\subsection{Installation}
+
+Rundeck, étant donnée sa conception faite en Java, va demander l'ajout des paquets Java afin de permettre son bon fonctionnement.
+\\
+\vspace{0.2cm}
+Dans notre cas, nous avons utilisé CentOS 
+\vspace{0.1cm}
+\begin{itemize}
+    \item yum install java-1.8.0 -y
+\end{itemize}
+
+\vspace{0.2cm}
+Une fois les paquets java installés, il suffit de récupérer la dernière version de Rundeck depuis leur site.
+\vspace{0.2cm}
+\begin{itemize}
+    \item rpm -Uvh https://repo.rundeck.org/latest.rpm \# Récupère la dernière version de Rundeck
+    \item yum install rundeck -y
+\end{itemize}{}
+
+\subsection{Configuration}
+
+\subsection{Utilisation}
+
+\subsubsection{Pilotage de machine}
+
+\subsubsection{Création de jobs}
+
+\section{Bibliographie}
+\begin{itemize}
+    \item https://fr.wikipedia.org/wiki/Rundeck
+    \item https://docs.rundeck.com/docs/
+    \item {https://replay.jres.org/videos/watch/db166173-511c-4879-aabe-c5e014e47863}
+\end{itemize}
+
+\section{Annexes}
+
+\end{document}
