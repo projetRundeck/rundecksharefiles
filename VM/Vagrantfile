@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "nfs" do |b|
     b.vm.box = "debian/buster64"
     b.vm.hostname = "nfs"
-    b.vm.network "private_network", ip: "172.28.128.2"
+    b.vm.network "private_network", ip: "172.28.128.6"
     b.vm.provision "shell", path: "provision.sh", args: "nfs"
   end
 

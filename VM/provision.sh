@@ -27,8 +27,8 @@ if [ "$VM" = "rundeck" ];then
     sudo -u adminRundeck sshpass -p rundeck ssh-copy-id rundeck@172.28.128.4
     sudo -u adminRundeck ssh -o "StrictHostKeyChecking no" rundeck@172.28.128.3
     sudo -u adminRundeck sshpass -p rundeck ssh-copy-id rundeck@172.28.128.3
-    sudo -u adminRundeck ssh -o "StrictHostKeyChecking no" rundeck@172.28.128.2
-    sudo -u adminRundeck sshpass -p rundeck ssh-copy-id rundeck@172.28.128.2
+    sudo -u adminRundeck ssh -o "StrictHostKeyChecking no" rundeck@172.28.128.6
+    sudo -u adminRundeck sshpass -p rundeck ssh-copy-id rundeck@172.28.128.6
 fi
 if [ "$VM" = "mail" ]
 then
