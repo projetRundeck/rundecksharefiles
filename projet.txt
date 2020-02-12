@@ -16,7 +16,7 @@ OS : CentOS
 
 VM zfs :
 
-IP: 172.28.128.2
+IP: 172.28.128.6
 OS : Debina 10
 
 20/01/2020 	Mise à jour VM
@@ -45,22 +45,39 @@ OS: Debian 10
 Gestion de projet :
 Trello : https://trello.com/b/hg0pZAjQ/gestion-projet-rundeck
 
-Jenkins :
+- Rundeck :
 
-- Construit avec Java
-- Free Open Source
-- Support dedié pour les pipelines
-- Manque de support en général
-- Problèmes de compatibilités au niveau des plugins
-- Ensemble riche de plugins (environs 1500)
-- Utilisé par des grandes entrepises comme Facebook, Netflix, e-Bay, LinkedIn, Twitch, Docker etc...
+	2 versions : Standard & Entreprise
+	Orchestrateur de tâches (deploiement sur un réseau privé FORBIDDEN PUBLIC NETWORK !)
+	Ecrit en JAVA
+	Exécute des tâches et/ou jobs en SSH --> Gestion centralisée
+	Principe de nodes (noeuds) --> un noeud = un serveur
+	Planification des tâches --> Paramétrage du jour/fréquence et heure d'exécution d'une commande/job
+	Plugins intégrés par défaut + Plugins disponible au téléchargement
+	
+	- Nodes : 
+		Ajout par adresse IP
+		Système de "tags" (identification par un nom du noeud)
+		Implémentation manuelle / ou automatique avec un fichier (nomFichier.xml)
+		
+		- Jobs :
+			Éxécution étape par étape (step by step)
+			Workflow Strategy : Definiton de l'ordre d'éxécution des étapes (Node First, Parallel, Ruleset, Sequential)
+				- Node First : Éxécute toute les étapes d'un job sur le noeud 1, puis sur le noeud 2 etc...
+				- Parallel : Éxécution de tous en parallèle et en même temps sur tous les noeuds
+				- Ruleset : Définition des règles et conditions d'éxécutions dans une étape de job
+				- Sequential : Le step 1 sera joué sur le noeud 1 puis noeuds 2 puis noeud X ensuite le step 2 ainsi de suite
+		
+	- Moyens d'exploitations :
+		Commande simple
+		Scénario (éxécution d'un script)
+		Fichier de script/URL (éxécution d'un script ou à partir d'une URL)
+		Référence de travail (éxécution d'un job propre à chaque noeuds)
+	
+- Ansible :
 
-Outil en Open Source d'intégration continue.
-Peut d'interfacer avec des systèmes de gestion de versions tels que CVS, Git ou même Subversion
-Execute des projets basés sur Apache Ant, Apache Maven & scripts arbitraires
-1ere version en 2011
-Licence MIT
-Fonctionne sur une machine virtuelle Java
-Developper à l'orignine comme étant le projet Hudson (à la base ce sont 2 projets différents)
+- JobSchedueler : 
 
-Buildbot :
+- Buildbot : 
+
+- Jenkins :
