@@ -1,11 +1,27 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{tgheros}
+\usepackage{listings}
+\usepackage{forest}
 \renewcommand{\familydefault}{\sfdefault}
+
+\lstset
+{ 
+    language=xml,
+    basicstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+}
 
 \title{Rapport Projet Tuteuré Rundeck}
 \author{HEPPNER Tristan / ROYER Grégory
@@ -18,94 +34,295 @@ TORRES Yanis / AISSI Ayoub }
 \maketitle
 \newpage
 \tableofcontents
-
 \newpage
-
 \section{Remerciements}
-Nous remercions l’ensemble des membres du jury (professeurs  et  intervenants) pour leurs précieux enseignements, leurs conseils avisés ainsi que pour leur patience.
-\vspace{0.2cm}
-\\
-Mention  spéciale  pour  notre  tuteur,  Monsieur Stéphane  Casset,associé-gérant  de l'entreprise Logidee,qui n’a pas hésité à donner de son temps pour nous aider à avancer sur le projet.
-\vspace{0.2cm}
-\\
-Merci  à  Monsieur Lucas  Nussbaum,  Debian  Project  Leader  (DPL),  maître  de conférences à l'Université de Lorraine et chercheur auprès du laboratoire LORIA, pour nous avoir donné l’envie d’aller plus loin dans l’univers du monde libre.
-\vspace{0.2cm}
-\\
-Que cette licence ASRALL(Administration de Systèmes, Réseaux et Applications à base  de  Logiciels  Libres)  puisse  perdurer  dans  le  temps,  et  toujours  apporter  les connaissances indispensables dont nous, les élèves et futurs administrateurs, avons besoin. Un grand merci à Monsieur Philippe Dosch, enseignant et responsable de la licence, qui a su, quand il le fallait, nous écouter et nous donner les indications nous permettant de prendre la bonne direction.*
+
+Nous remercions notre tuteur de projet tutoré, Mr Fabien PASCALE pour nous avoir fait découvrir Rundeck et ses enjeux ainsi que l'ampleur et l'importance de ce projet.
 
 \newpage
-
 \section{Présentation du projet}
-L'objectif de ce projet tuteuré est de créer une plate forme complète de test avec un service Rundeck et de pouvoir proposer un système « clé en mains » aux utilisateurs qui souhaitent lancer une copie de leur données HOME vers un stockage “froid” ou de faire de l’édition web en passant par un environnement de développement.
 
-\section{Répartition des taches}
 \section{Rundeck}
+\subsection{Historique et versions}
+
+Rundeck est apparu en 2011 suite à la demande de plus en plus forte du besoin de pouvoir administrer tous les serveurs d'un parc informatique depuis un seul serveur d'administration central. La dernière version en date est la version 3.2.0 datant du 10 février 2020.
+
+\subsection{Contexte}
+
+Rundeck est, parmi un large panel de logiciel d'automatisation, un des plus utilisé lorsque l'utilisateur souhaite automatiser la gestion d'un parc informatique depuis une seule machine physique.
 
 \subsection{Présentation}
 
-Rundeck est un logiciel libre permettant l'automatisation d'administration de serveurs (GNU/Linux, Mac OS X et Windows) via la création de jobs ou tâches. Il développé en Java et est distribué sous la licence Apache Software 2.0
-\\
-Actuellement, le code source de Rundeck est disponible sur la plate-forme GitHub. Ce projet est en libre accès et permet donc aux utilisateurs de contribuer à son développement.
-\\
-Rundeck peut être installé n'importe quelle distributions de Linux, que ce soit \underline{Debian}, \underline{Ubuntu}, \underline{Arch} ou \underline{CentOS}. 
-\\
-Cependant, Rundeck est plus facile à manipuler lors qu'il se trouve sur CentOS. En effet, CentOS est réputé pour être principalement destiné aux serveurs web. Rundeck, fournissant une base de données ainsi qu'une interface web, fonctionne et se manipule beaucoup mieux sur CentOS.
+Rundeck est un logiciel Open-Source d'automatisation de gestion de parc informatique. Rundeck est définit comme un orchestrateur de tâches. Sorti en 2011, il dispose d'une variante entreprise appelé "Rundeck Entreprise". Rundeck est également un logiciel cross-platform disponible sur les systèmes UNIX et Windows. Rundeck est hébergé sur la plate forme GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. Rundeck est en majeur partie, améliorer grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou même en rejoignant une équipe de développement de Rundeck. Rundeck est développer en JAVA et propose une interface WEB (requiert les paquets JAVA), une interface CLI (Command-Line Interface) ainsi qu'une interface API REST.
 
-\subsection{Fonctionnement}
-Rundeck se présente sous la forme d'une interface WEB, disponible à l'adresse \underline{http://localhost:4440}. Cette adresse est l'adresse définit par défaut par Rundeck et peut être modifié par l'utilisateur.
-\\
-Cette interface permet à l'utilisateur d'enregistrer les machines d'un parc, exécuter des commandes via SSH mais également programmer des "jobs", c'est à dire des scripts qui exécuteront des commandes, par exemple, programmer mensuellement un job pour une vérification des mises à jours du système. 
-\\
-Toutefois, une interface en ligne de commande (CLI) est également disponible est fonctionne de la même manière que l'interface graphique.
+\subsection{Fonctionnement \& Protocoles}
+
+Rundeck, étant un orchestrateur de tâches, permet l'exécution de tâches et/ou jobs sur des serveurs distant via une connexion SSH. Rundeck fonctionne sur des réseaux privées où les machines possèdent des adresses IP statiques. Les adresses IP dynamique des serveurs distants peuvent causer des conflits d'IP et de clés SSH sur la machine Rundeck.
+Rundeck également basé sur le principe maître/esclave (master/slave) : La machine où se trouve l'application Rundeck est le maître tandis que le serveur distant est l'esclave. De plus, Rundeck montrera un meilleur fonctionnement si celui-ci est installé sur une distribution orientée serveur telles que CentOS. Par défaut, Rundeck écoute sur le port 4440 (http) mais peut également écouté sur le port 4443 (https)
 
 \subsection{Fonctionnalités}
 
+Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilisateur de Rundeck, une gestion optimale d'un parc informatique.
+
+\subsubsection{Base de données}
+
+Rundeck dispose d'une base de données embarquée de type H2. Cette base de données permet le stockage des clés SSH, passphrases et mot de passe, le fichier de déclarations des nodes, les jobs, les logs ainsi que tous les utilisateurs.
+Toutefois, cette base de données peut être remplacée par une base de données créer par l'utilisateur de Rundeck (ex : une BDD postgreSQL)
+
+\subsubsection{Systèmes de fichiers}
+
+Rundeck offre la possibilité de pouvoir configurer et enregistrer les données sur des fichiers se trouvant sur la machine centrale. Depuis ces fichiers, l'utilisateur peut définir la méthode de stockage des données, l'adresse d'accès à Rundeck (par défaut \url{http://localhost:4440}), les comptes utilisateurs ainsi que leur droits, les jobs ainsi que les logs.
+
 \subsubsection{Nodes (serveurs)}
-\subsubsection{Taches simple}
-\subsubsection{Jobs}
 
-\subsection{Concurrence}
-\subsubsection{Jenkins}
-\subsubsection{Buildbot}
+Les nodes, ou serveurs, sont les machines que l'utilisateur Rundeck souhaite gérer depuis sa machine. L'ajout d'un node à Rundeck se fait soit dans le fichiers "resources.xml" soit depuis l'interface WEB de Rundeck.
+Le fichier ressources.xml peut être nommé par un autre nom mais cela implique une modification dan le fichier de configuration de Rundeck
 
-\section{Mise en place de Rundeck}
+Que le fichier se trouve dans une base de données ou dans le système de fichiers, la déclaration d'un node se fait en langage XML
 
-\subsection{Environnement de travail}
+\begin{lstlisting}
+<node name="" 
+	description="" 
+	tags="" 
+	hostname="" 
+	osArch="" 
+	osFamily="" 
+	osName="" 
+	osVersion="" 
+	username=""
+/>
+\end{lstlisting}
 
-\subsection{Installation}
+\vspace{0.5cm}
 
-Rundeck, étant donnée sa conception faite en Java, va demander l'ajout des paquets Java afin de permettre son bon fonctionnement.
-\\
-\vspace{0.2cm}
-Dans notre cas, nous avons utilisé CentOS 
-\vspace{0.1cm}
+\textbf{Détails des champs :}
+
 \begin{itemize}
-    \item yum install java-1.8.0 -y
+    \item name : nom du node 
+    \item description :  description rapide du serveur (ex : serveur web)
+    \item tags : nom pour l'identification du serveur (ex : web)
+    \item hostname : adresse IP du serveur distant (ex : 192.168.0.1)
+    \item osArch : Architecture du serveur distant (ex : amd64)
+    \item osFamily : Famille de l'OS du serveur distant (ex : unix)
+    \item osName : Nom de l'OS du serveur distant (ex : Debian GNU/Linux)
+    \item osVersion : Version de l'OS du serveur distant (ex : 10.2)
+    \item username : utilisateur avec lequel Rundeck se connectera sur la machine
 \end{itemize}
 
-\vspace{0.2cm}
-Une fois les paquets java installés, il suffit de récupérer la dernière version de Rundeck depuis leur site.
-\vspace{0.2cm}
+\subsubsection{Taches simple}
+
+\subsubsection{Jobs}
+
+La planification de jobs est un des atouts de Rundeck. Un job peut être créer et configurer de différentes manières :
+\vspace{0.5cm}
+
+Ordre d'exécution (Workflow Strategy)
+
+\vspace{0.5cm}
+
 \begin{itemize}
-    \item rpm -Uvh https://repo.rundeck.org/latest.rpm \# Récupère la dernière version de Rundeck
-    \item yum install rundeck -y
-\end{itemize}{}
+    \item  "Node First" : Exécute toute les étapes d'un job sur le noeud 1, puis sur le noeud 2 etc...
+	\item "Parallel" : Exécution de tous les jobs en parallèle et en même temps sur tous les noeuds
+	\item "Ruleset" : Définition des règles et conditions d'exécutions dans une étape de job
+	\item "Sequential" : Le step 1 sera joué sur le noeud 1 puis noeuds 2 puis noeud X ensuite le step 2 ainsi de suite
+\end{itemize}
+
+\vspace{0.5cm}
+Chaque job est exécute en mode étape par étape (step by step), et ce peut importe l'ordre d'exécution.
+Les steps d'un jobs sont les étapes d'un job. En effet, un job n'est pas spécifique à une commande; un job peut être composé d'une étape "Mise à jour" suivie d'un étape de sauvegarde.
+Les résultats d'un job peuvent être consultés de différentes façons : un mail ou webhook qui contient le nom du job, le nom de la machine ou celui ci à été exécute, l'heure ainsi que le statut du job si celui-ci à été réussi ou a échoué. Ces informations peuvent être également consultés depuis l'interface WEB qui fournit également les même renseignements
+\subsection{Conclusions}
+
+\section{Jenkins}
+\subsection{Historique et versions}
+Jenkins apparaît pour la première fois en 2011, soit la même année que Rundeck. La dernière version est la 2.204.1 datant du 18 Décembre 2019
+
+\subsection{Contexte}
+Jenkins est principalement utilisé pour la compilation des futures mises à jours. 
+\subsection{Présentation}
+Rundeck est un logiciel Open-Source de compilation automatique de paquets. Jenkins est définit comme un outil d'intégration continu
+\\
+Bien que Jenkins présente de nombreuses similitudes avec Rundeck, Jenkins à pour rôles la compilation automatique de paquets. Jenkins est qualifié d'outil d'intégration continue et est notamment utilisé lors des futurs déploiement de mises à jours
+\\
+Jenkins possède plusieurs points communs et ressemblances avec Rundeck telles que son développement en JAVA, son hébergement sur GitHub, sa date de sortie en 2011 ainsi qu'une grande partie de son fonctionnement.
+\\
+Aujourd'hui, plus de 2500 entreprises utilisent Jenkins parmi lesquelles on peut retrouver FaceBook, Ebay, Netflix, Twitch et LinkedIn .
+\subsection{Fonctionnement}
+\subsection{Fonctionnalités}
+\subsection{Conclusions}
+
+\section{Buildbot}
+\subsection{Historique et versions}
+\subsection{Contexte}
+\subsection{Présentation}
+\subsection{Fonctionnement}
+\subsection{Fonctionnalités}
+\subsection{Conclusions}
+
+\section{Ansible Tower}
+\subsection{Historique et versions}
+\subsection{Contexte}
+\subsection{Présentation}
+\subsection{Fonctionnement}
+\subsection{Fonctionnalités}
+\subsection{Conclusions}
+
+\section{JobScheduler}
+
+\subsection{Historique et versions}
+\subsection{Contexte}
+\subsection{Présentation}
+\subsection{Fonctionnement}
+\subsection{Fonctionnalités}
+\subsection{Conclusions}
+
+\section{Crontab}
+\subsection{Historique et versions}
+\subsection{Contexte}
+\subsection{Présentation}
+\subsection{Fonctionnement}
+\subsection{Fonctionnalités}
+\subsection{Conclusions}
+
+\section{Mise en place de Rundeck}
+\subsection{Environnement de travail}
+\subsection{Installation}
+\subsubsection{Exigences système}
+
+\begin{itemize}
+    \item Linux: Distributions récentes conseillées pour un fonctionnement optimal
+    \item Windows :  XP, Server et supérieures (Distributions récentes conseillées)
+    \item Mac : OS X 10.4 ou supérieure
+\end{itemize}
+
+\vspace{0.5cm}
+
+Accès root (ou administrateur) non requis; création d'un compte utilisateur dédié créer conseillé par Rundeck 
+
+\vspace{0.5cm}
+
+\textbf{Informations complémentaires fournies par Rundeck}
+\begin{itemize}
+    \item OS supportés :  Red Hat Enterprise Linux - CentOS - Ubuntu - Windows Server
+    \item Dernière versions supportés de Mozilla Firefox ou Google Chrome (les autres navigateurs peuvent fonctionner mais présentant des problèmes d'affichage)
+    \item 2 CPU
+    \item 4 GB de mémoire RAM minimum
+    \item 20 GB d'espace disques minimum
+    \item Base de données supportées : MySQL - MariaDB - PostgreSQL - Oracle
+    \item Logs : Système de fichiers
+\end{itemize}
+
+\vspace{0.5cm}
+
+La version 1.8 de JAVA est également requise
+\subsubsection{Windows}
+
+\subsubsection{Linux}
+
+L'installation de Rundeck sous Linux est très simpliste. Afin d'obtenir un fonctionnement optimal, Rundeck a été mis en place sous CentOS. Son installation s'est composé des étapes suivantes : 
+
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y \# Installation de la version de Java requise
+    \item sudo rpm -Uvh http://repo.rundeck.org/latest.rpm \# Récupération de la dernière version de Rundeck
+    \item sudo yum -y install rundeck \# Installation de Rundeck
+\end{itemize}
 
 \subsection{Configuration}
 
+La configuration peut se faire de différentes manières, ce qui laisse à l'utilisateur de larges possibilités de configuration. Ci dessous, les fichiers qui permettent de définir l'URL d'accès à Rundeck, la méthode de stockage des données, le chemin vers le fichier de définition des nodes
+\vspace{0.5cm}
+\\
+\vspace{0.5cm}
+\begin{forest}
+  for tree={
+    font=\ttfamily,
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}]
+      (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+    },
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+[/etc/rundeck/
+  [framework.properties]
+  [rundeck-config.properties]
+]
+\end{forest}
+\\
+\vspace{0.5cm}
+\begin{forest}
+  for tree={
+    font=\ttfamily,
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}]
+      (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+    },
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+  [/var/lib/rundeck
+  [projects
+    ["nom du projet"
+      [etc]  
+    ]
+  ]
+]
+\end{forest}
+
+\subsubsection{URL d'accès}
+Rundeck est fourni avec une interface web dont l'URL est \url{http://localhost:4440}.
+
+\subsubsection{Définition de la méthode de stockage}
+Rundeck, par défaut, utilise sa propre base de données embarquée dans laquelle sont stockés les jobs, les noeuds, les utilisateurs et leurs droits
+
+\subsubsection{Définition des nodes}
+Les nodes sont définis dans un fichier .xml et doit suivre une syntaxe imposé par Rundeck
+
+\subsubsection{Clés SSH}
+Rundeck requiert les clés SSH de chaque machine qu'il a sous son contrôle
+
+\subsubsection{Mise en place de jobs}
+Un job est décomposé en plusieurs "step"
+
 \subsection{Utilisation}
-
-\subsubsection{Pilotage de machine}
-
+\subsubsection{Pilotage de service}
 \subsubsection{Création de jobs}
 
+\newpage
 \section{Bibliographie}
+
 \begin{itemize}
-    \item https://fr.wikipedia.org/wiki/Rundeck
-    \item https://docs.rundeck.com/docs/
-    \item {https://replay.jres.org/videos/watch/db166173-511c-4879-aabe-c5e014e47863}
+    \item \url{https://docs.rundeck.com/docs/administration/install/}
+    \item \url{https://docs.rundeck.com/docs/manual/}
+    \item \url{http://docs.buildbot.net/current/index.html}
+    \item \url{https://github.com/rundeck/rundeck}
+    \item \url{https://docs.rundeck.com/docs/administration/configuration/config-file-reference.html}
+    \item \url{https://tech.oyster.com/rundeck-vs-crontab-why-rundeck-won/}
 \end{itemize}
 
+\newpage
 \section{Annexes}
 
 \end{document}
