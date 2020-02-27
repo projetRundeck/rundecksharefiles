@@ -37,123 +37,177 @@ TORRES Yanis / AISSI Ayoub }
 \newpage
 \section{Remerciements}
 
-Nous remercions notre tuteur de projet tutoré, Mr Fabien PASCALE pour nous avoir fait découvrir Rundeck et ses enjeux ainsi que l'ampleur et l'importance de ce projet.
-
+Nous remercions notre tuteur de projet tutoré, Mr Fabien PASCALE, Expert en calcul scientifique au CNRS, pour nous avoir fait découvrir Rundeck, ses enjeux ainsi que l'ampleur et l'importance de ce projet.
+\vspace{0.5cm}
+\\
+Merci  à  Monsieur Lucas  Nussbaum,  Debian  Project  Leader  (DPL),  maître  de conférences à l'Université de Lorraine et chercheur auprès du laboratoire LORIA, pour nous avoir permit de nous enrichir intellectuellement.
+\vspace{0.5cm}
+\\
+Que cette licence ASRALL(Administration de Systèmes, Réseaux et Applications à base  de  Logiciels  Libres)  puisse  perdurer  dans  le  temps,  et  toujours  apporter  les connaissances indispensables dont nous, les élèves et futurs administrateurs, avons besoin. Un grand merci à Monsieur Philippe Dosch, enseignant et responsable de la licence, qui a su, quand il le fallait, nous écouter et nous donner les indications nous permettant de prendre la bonne direction.
 \newpage
-\section{Présentation du projet}
+\section{Introduction}
+Depuis l’apparition de l’Homme sur la terre, ce dernier n’a eu de cesse que de trouver divers moyens pour améliorer la vie de ses semblables. Nous sommes,  par  nature, des  êtres sociables, sociaux et dotés d’intelligence.
+
+\section{Sujet de la soutenance}
+
+La finalité de ce projet est de proposer une solution permettant d'automatiser la gestion d'un parc informatique grâce à une seule et unique machine.
+
+Pour cela, nous allons analyser les solutions existantes :
+\begin{itemize}
+    \item Rundeck
+    \item Jenkins
+    \item Buildbot
+    \item Ansible Tower
+    \item JobScheduler
+    \item Crontab
+\end{itemize}
+\vspace{0.5cm}
+L'objectif de se projet, est quant à lui de démontrer l'utilité de la solution Rundeck
+\vspace{0.5cm}
+\\
+A la fin du projet, nous disposerons :
+\begin{itemize}
+    \item Tutoriel de mise en place de Rundeck
+    \item Comparaison des solutions existantes
+\end{itemize}
+\vspace{0.5cm}
+\textbf{Tuteur du projet : }
+\\
+PASCALE Fabien \hspace{3.3cm} fabien.pacale@gmail.com
+\vspace{0.5cm}
+\\
+\textbf{Étudiants : }
+\\
+AISSI Ayoub \hspace{4.2cm} aa.w-a@hotmail.fr
+\\ 
+HEPPNER Tristan \hspace{3.2cm} tristan.heppner@outlook.com
+\\ 
+ROYER Grégory \hspace{3.5cm} gregory.royer@hotmail.com
+\\ 
+TORRES Yanis \hspace{3.7cm} yanis.torres@outlook.com
+\\
+\vspace{0.5cm}
+\\
+Avant de débuter l'analyse des solutions, une définition du mot \textbf{Automatisation} est de rigueur afin de pouvoir aborder, dans les meilleurs conditions possibles, ce sujet.
+\\
+Nous allons ensuite analyser chaque solution avec un bref historique, son contexte d'utilisation, la présentation de la solution, son fonctionnement, ses fonctionnalités ainsi qu'un bref conclusion sur cette solution.
+\\
+Nous aborderons ensuite la solution choisit avec un tutoriel sur sa mise en place.
+
+\section{L'automatisation}
+
+\textit{Déf : L’automatique est une science qui traite de la modélisation, de l’analyse, de l’identification et de la commande des systèmes dynamiques.}
+\vspace{0.5cm}
+\\
+Dans le monde que nous connaissons, on peut voir, sans s'en rendre compte, un quantité astronomique de systèmes automatiques. En effet, l'automatisation d'un système est une chose à laquelle l'homme ne cesse de penser. 
+\\
+L'automatisation est une science très ancienne datant de l'Antiquité. Dans l'antiquité Romaine, le  niveau de l'eau qui transitait sur les aqueducs était réguler par des valves.
+\\
+Depuis, l'Homme n'a jamais cessé d'automatiser les éléments qui l'entoure. De célèbre invention ont vu le jour telles que le régulateur à boules de James Watt en 1769.
+\\
+La science de l'automatique n'a renoncer d'évoluer et de gagner en popularité
+\\
+L'automatisation, telle que nous l'a connaissons aujourd'hui est devenue fondamentale dans certains domaines notamment dans l'industrie ou encore les systèmes informatiques.
+
+\section{Principe d'automatisation d'un parc informatique}
 
 \section{Rundeck}
 \subsection{Historique et versions}
 
 Rundeck est apparu en 2011 suite à la demande de plus en plus forte du besoin de pouvoir administrer tous les serveurs d'un parc informatique depuis un seul serveur d'administration central. La dernière version en date est la version 3.2.0 datant du 10 février 2020.
 
-\subsection{Contexte}
+\subsection{Contexte d'utilisation}
 
 Rundeck est, parmi un large panel de logiciel d'automatisation, un des plus utilisé lorsque l'utilisateur souhaite automatiser la gestion d'un parc informatique depuis une seule machine physique.
 
 \subsection{Présentation}
 
-Rundeck est un logiciel Open-Source d'automatisation de gestion de parc informatique. Rundeck est définit comme un orchestrateur de tâches. Sorti en 2011, il dispose d'une variante entreprise appelé "Rundeck Entreprise". Rundeck est également un logiciel cross-platform disponible sur les systèmes UNIX et Windows. Rundeck est hébergé sur la plate forme GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. Rundeck est en majeur partie, améliorer grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou même en rejoignant une équipe de développement de Rundeck. Rundeck est développer en JAVA et propose une interface WEB (requiert les paquets JAVA), une interface CLI (Command-Line Interface) ainsi qu'une interface API REST.
+Rundeck est un logiciel Open-Source d'automatisation de gestion de parc informatique. Rundeck est définit comme un orchestrateur de tâches. 
+\\
+Sorti en 2011, il dispose d'une variante entreprise appelé "Rundeck Entreprise" permettant la gestion d'un parc informatique de plus grande envergure. 
+\\
+Rundeck est également un logiciel cross-platform disponible sur les systèmes UNIX, Windows et Mac OS. 
+\\
+Rundeck est hébergé sur la plate forme GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. 
+\\
+Rundeck est en majeur partie, amélioré grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou en rejoignant une équipe de développement de Rundeck. 
+\\
+Rundeck est développé en JAVA et propose une interface WEB (requiert les paquets JAVA), une interface CLI (Command-Line Interface) ainsi qu'une API REST.
 
-\subsection{Fonctionnement \& Protocoles}
+\subsection{Fonctionnement}
 
-Rundeck, étant un orchestrateur de tâches, permet l'exécution de tâches et/ou jobs sur des serveurs distant via une connexion SSH. Rundeck fonctionne sur des réseaux privées où les machines possèdent des adresses IP statiques. Les adresses IP dynamique des serveurs distants peuvent causer des conflits d'IP et de clés SSH sur la machine Rundeck.
-Rundeck également basé sur le principe maître/esclave (master/slave) : La machine où se trouve l'application Rundeck est le maître tandis que le serveur distant est l'esclave. De plus, Rundeck montrera un meilleur fonctionnement si celui-ci est installé sur une distribution orientée serveur telles que CentOS. Par défaut, Rundeck écoute sur le port 4440 (http) mais peut également écouté sur le port 4443 (https)
+Rundeck permet l'exécution de tâches et/ou jobs sur des serveurs distant via une connexion SSH. Rundeck fonctionne sur des réseaux privées où les machines possèdent des adresses IP statiques. 
+\\
+Les adresses IP dynamique des serveurs distants peuvent causer des conflits d'IP et de clés SSH sur le serveur de Rundeck.
+\\
+Rundeck également basé sur le principe maître/esclave (master/slave) : La machine où se trouve l'application Rundeck est le maître tandis que le serveur distant est l'esclave. 
+\\
+De plus, Rundeck montrera un meilleur fonctionnement si celui-ci est installé sur une distribution orientée serveur telles que CentOS. Par défaut, Rundeck écoute sur le port 4440 (http) mais peut également écouté sur le port 4443 (https)
+\\
+Cependant, Rundeck peut être installé sur d'autres distributions telles qu'Ubuntu, Debian ou même Windows à la seule conditions d'avoir les paquets Java correspondants sous peine de rencontrer des problèmes d'exécution ou d'affichage.
+\\
+Rundeck, par défaut, fonctionne avec sa propre base de données, un interface WEB ainsi qu'un compte administrateur dont les identifiants sont "admin" pour le nom d'utilisateur et "admin" pour le mot de passe
 
 \subsection{Fonctionnalités}
 
-Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilisateur de Rundeck, une gestion optimale d'un parc informatique.
+Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilisateur de Rundeck, une gestion optimale d'un parc informatique. Rundeck mets à disposition un choix de plus de 1000 plugins de nature diverses et variées. 
+\\
+Rundeck propose également diverses fonctionnalités notamment l'exécution de commandes/taches à distances
+\\
+Rundeck également très modulable. En effet, Rundeck utilise un base de données pour l'enregistrement de données telles que les jobs, les clés SSH, les utilisateurs qui ont accès à Rundeck.
 
-\subsubsection{Base de données}
-
-Rundeck dispose d'une base de données embarquée de type H2. Cette base de données permet le stockage des clés SSH, passphrases et mot de passe, le fichier de déclarations des nodes, les jobs, les logs ainsi que tous les utilisateurs.
-Toutefois, cette base de données peut être remplacée par une base de données créer par l'utilisateur de Rundeck (ex : une BDD postgreSQL)
-
-\subsubsection{Systèmes de fichiers}
-
-Rundeck offre la possibilité de pouvoir configurer et enregistrer les données sur des fichiers se trouvant sur la machine centrale. Depuis ces fichiers, l'utilisateur peut définir la méthode de stockage des données, l'adresse d'accès à Rundeck (par défaut \url{http://localhost:4440}), les comptes utilisateurs ainsi que leur droits, les jobs ainsi que les logs.
-
-\subsubsection{Nodes (serveurs)}
-
-Les nodes, ou serveurs, sont les machines que l'utilisateur Rundeck souhaite gérer depuis sa machine. L'ajout d'un node à Rundeck se fait soit dans le fichiers "resources.xml" soit depuis l'interface WEB de Rundeck.
-Le fichier ressources.xml peut être nommé par un autre nom mais cela implique une modification dan le fichier de configuration de Rundeck
-
-Que le fichier se trouve dans une base de données ou dans le système de fichiers, la déclaration d'un node se fait en langage XML
-
-\begin{lstlisting}
-<node name="" 
-	description="" 
-	tags="" 
-	hostname="" 
-	osArch="" 
-	osFamily="" 
-	osName="" 
-	osVersion="" 
-	username=""
-/>
-\end{lstlisting}
-
-\vspace{0.5cm}
-
-\textbf{Détails des champs :}
-
-\begin{itemize}
-    \item name : nom du node 
-    \item description :  description rapide du serveur (ex : serveur web)
-    \item tags : nom pour l'identification du serveur (ex : web)
-    \item hostname : adresse IP du serveur distant (ex : 192.168.0.1)
-    \item osArch : Architecture du serveur distant (ex : amd64)
-    \item osFamily : Famille de l'OS du serveur distant (ex : unix)
-    \item osName : Nom de l'OS du serveur distant (ex : Debian GNU/Linux)
-    \item osVersion : Version de l'OS du serveur distant (ex : 10.2)
-    \item username : utilisateur avec lequel Rundeck se connectera sur la machine
-\end{itemize}
-
-\subsubsection{Taches simple}
-
-\subsubsection{Jobs}
-
-La planification de jobs est un des atouts de Rundeck. Un job peut être créer et configurer de différentes manières :
-\vspace{0.5cm}
-
-Ordre d'exécution (Workflow Strategy)
-
-\vspace{0.5cm}
-
-\begin{itemize}
-    \item  "Node First" : Exécute toute les étapes d'un job sur le noeud 1, puis sur le noeud 2 etc...
-	\item "Parallel" : Exécution de tous les jobs en parallèle et en même temps sur tous les noeuds
-	\item "Ruleset" : Définition des règles et conditions d'exécutions dans une étape de job
-	\item "Sequential" : Le step 1 sera joué sur le noeud 1 puis noeuds 2 puis noeud X ensuite le step 2 ainsi de suite
-\end{itemize}
-
-\vspace{0.5cm}
-Chaque job est exécute en mode étape par étape (step by step), et ce peut importe l'ordre d'exécution.
-Les steps d'un jobs sont les étapes d'un job. En effet, un job n'est pas spécifique à une commande; un job peut être composé d'une étape "Mise à jour" suivie d'un étape de sauvegarde.
-Les résultats d'un job peuvent être consultés de différentes façons : un mail ou webhook qui contient le nom du job, le nom de la machine ou celui ci à été exécute, l'heure ainsi que le statut du job si celui-ci à été réussi ou a échoué. Ces informations peuvent être également consultés depuis l'interface WEB qui fournit également les même renseignements
 \subsection{Conclusions}
 
 \section{Jenkins}
 \subsection{Historique et versions}
-Jenkins apparaît pour la première fois en 2011, soit la même année que Rundeck. La dernière version est la 2.204.1 datant du 18 Décembre 2019
 
-\subsection{Contexte}
-Jenkins est principalement utilisé pour la compilation des futures mises à jours. 
+Tout comme Rundeck, Jenkins sort en 2011 et est également disponible sur la plate forme GitHub.
+\\
+Sa dernière version en date est la 2.204.1 datant du 18 décembre 2019.
+\\
+Jenkins apparaît suite à la cessation d'Hudson par Oracle à la fondation Eclipse. Jenkins devint en 2011, le successeur d'Hudson.
+\\
+Contrairement à Jenkins, Hudson est un framework d'intégration automatique.
+
+\subsection{Contexte d'utilisation}
+
+Jenkins est un logiciel d'intégration continu utilisé pour la compilation automatique de code source lors de la création de nouveaux programmes et/ou mises à jours .
+
 \subsection{Présentation}
-Rundeck est un logiciel Open-Source de compilation automatique de paquets. Jenkins est définit comme un outil d'intégration continu
+
+Jenkins est un logiciel Open-Source d'automatisation, tout comme Rundeck
 \\
-Bien que Jenkins présente de nombreuses similitudes avec Rundeck, Jenkins à pour rôles la compilation automatique de paquets. Jenkins est qualifié d'outil d'intégration continue et est notamment utilisé lors des futurs déploiement de mises à jours
+Sorti en 2011, Jenkins est un dérivé de son prédécesseur Hudson.
 \\
-Jenkins possède plusieurs points communs et ressemblances avec Rundeck telles que son développement en JAVA, son hébergement sur GitHub, sa date de sortie en 2011 ainsi qu'une grande partie de son fonctionnement.
+Jenkins est également un logiciel cross-platform disponible sur les systèmes UNIX, Windows et Mac OS. 
 \\
-Aujourd'hui, plus de 2500 entreprises utilisent Jenkins parmi lesquelles on peut retrouver FaceBook, Ebay, Netflix, Twitch et LinkedIn .
+Jenkins est hébergé sur la plate forme GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. 
+\\
+Jenkins est en majeur partie, amélioré grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou en rejoignant une équipe de développement de Rundeck. 
+\\
+Rundeck est développé en JAVA et propose une interface WEB et requiert donc des dépendances JAVA.
+
 \subsection{Fonctionnement}
+
+Jenkins est une application WEB en JAVA et se déploie de manière autonome dans un conteneur WEB de type Tomcat.
+\\
+Cependant, Jenkins peut fonctionner sur toutes les plates-formes pouvant exécuter une JVM (JAVA Virtual Machine) parmi lesquelles on retrouve Ubuntu/Debian, Windows ou même Mac OS à la seule conditions d'avoir les paquets Java correspondants sous peine de rencontrer des problèmes d'exécution ou d'affichage.
+\\
+Jenkins exécute de manière continue la construction des projets ou "build".
+\\ 
+Afin que Jenkins puisse permettre l'intégration continue, 
+\\
+Jenkins exécute les directives de fabrication du logiciel (compilation, assemblage, tests, packaging, ...). 
+\\
+De la même manière que Rundeck, Jenkins peut exécuter des jobs, soit sur lui-même, soit sur des serveurs distants
+Les jobs constituant les builds peuvent être exécutés sur le serveur Jenkins lui-même ou répartis sur plusieurs machines distantes. Jenkins conserve l'historique de toutes les exécutions des jobs et peut notifier par mail ou par RSS en cas erreur.
+
 \subsection{Fonctionnalités}
 \subsection{Conclusions}
 
 \section{Buildbot}
 \subsection{Historique et versions}
-\subsection{Contexte}
+\subsection{Contexte d'utilisation}
 \subsection{Présentation}
 \subsection{Fonctionnement}
 \subsection{Fonctionnalités}
@@ -161,24 +215,23 @@ Aujourd'hui, plus de 2500 entreprises utilisent Jenkins parmi lesquelles on peut
 
 \section{Ansible Tower}
 \subsection{Historique et versions}
-\subsection{Contexte}
+\subsection{Contexte d'utilisation}
 \subsection{Présentation}
 \subsection{Fonctionnement}
 \subsection{Fonctionnalités}
 \subsection{Conclusions}
 
 \section{JobScheduler}
-
 \subsection{Historique et versions}
-\subsection{Contexte}
+\subsection{Contexte d'utilisation}
 \subsection{Présentation}
 \subsection{Fonctionnement}
 \subsection{Fonctionnalités}
 \subsection{Conclusions}
 
-\section{Crontab}
+\section{Cron}
 \subsection{Historique et versions}
-\subsection{Contexte}
+\subsection{Contexte d'utilisation}
 \subsection{Présentation}
 \subsection{Fonctionnement}
 \subsection{Fonctionnalités}
@@ -191,7 +244,7 @@ Aujourd'hui, plus de 2500 entreprises utilisent Jenkins parmi lesquelles on peut
 
 \begin{itemize}
     \item Linux: Distributions récentes conseillées pour un fonctionnement optimal
-    \item Windows :  XP, Server et supérieures (Distributions récentes conseillées)
+    \item Windows : XP, Server et supérieures (Distributions récentes conseillées)
     \item Mac : OS X 10.4 ou supérieure
 \end{itemize}
 
@@ -309,6 +362,7 @@ Un job est décomposé en plusieurs "step"
 \subsection{Utilisation}
 \subsubsection{Pilotage de service}
 \subsubsection{Création de jobs}
+La création d'un job peut être fait directement sur l'interface Rundeck. Rundeck propose également à l'utilisateur de pouvoir exécuter un script provenant d'un site web externe, ou même de pouvoir exécuter un script déjà écrit à l'avance. x
 
 \newpage
 \section{Bibliographie}
@@ -320,6 +374,7 @@ Un job est décomposé en plusieurs "step"
     \item \url{https://github.com/rundeck/rundeck}
     \item \url{https://docs.rundeck.com/docs/administration/configuration/config-file-reference.html}
     \item \url{https://tech.oyster.com/rundeck-vs-crontab-why-rundeck-won/}
+    \item \url{https://www.edureka.co/blog/what-is-jenkins/}
 \end{itemize}
 
 \newpage
