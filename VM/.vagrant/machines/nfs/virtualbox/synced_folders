@@ -1,1 +1,1 @@
-{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/home/picrox/Bureau/Rundeck/rundecksharefiles/VM","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/home/stan/Documents/GitHub/rundecksharefiles/VM","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
