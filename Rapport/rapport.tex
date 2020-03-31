@@ -125,58 +125,37 @@ En termes de tâches redondantes, on peut retrouver les sauvegardes du système,
 \\
 L'objectif de l'automatisation d'un ou plusieurs systèmes est de pouvoir faire gagner en productivité, en temps de travailler mais aussi de pouvoir réduire les coûts.
 
-\section{Rundeck}
+\section{Cron}
 
 \begin{figure}[ht]
-    \includegraphics[scale=0.8]{images/rundeck.jpg}
-    \caption{Logo de Rundeck}
+    \includegraphics[scale=0.5]{images/crontab.png}
+    \caption{Logo de Crontab}
 \end{figure}
 
 \subsection{Présentation}
 
-Rundeck est un logiciel Open-Source d'automatisation de gestion de parc informatique. Rundeck est définit comme un orchestrateur de tâches. 
+\textit{Cron est la troncation de crontab, lui-même la troncation de chrono table qui signifie « table de planification »}
 \\
-Sorti en 2011, il dispose d'une variante entreprise appelé "Rundeck Entreprise" permettant la gestion d'un parc informatique de plus grande envergure. 
+Cron est un fonctionnalité native des systèmes Unix. C'est le planificateur de tâches par défaut et intégré à chaque distribution Linux
 \\
-Rundeck est également un logiciel cross-platform disponible pour les systèmes UNIX, Windows et Mac OS. 
+Crontab est l’ancêtre et l'outil de  planification le plus simple mais aussi le plus accessible pour tout le monde sur Linux
 \\
-Rundeck est hébergé sur la plate forme de développement GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. 
-\\
-Rundeck est en majeur partie, amélioré grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou en rejoignant une équipe de développement de Rundeck. 
-\\
-Rundeck est développé en JAVA et propose une interface WEB (requiert les paquets JAVA), une interface CLI (Command-Line Interface) ainsi qu'une API REST.
+Cron et Crontab ne vont pas l'un sans l'autre. En effet, cron est le planificateur de tâches tandis que Crontab est le programme qui permet d'éditer les fichiers de configurations de cron.
 
 \subsection{Historique et versions}
-
-Rundeck est apparu en 2011 suite à la demande de plus en plus forte du besoin de pouvoir administrer tous les serveurs d'un parc informatique depuis un seul serveur d'administration central. La dernière version en date est la version 3.2.0 datant du 10 février 2020.
+Le programme cron apparaît pour la première en mai 1975, c'est-à-dire, bien avant les distribution Linux que l'on connaît actuellement.
 
 \subsection{Contexte d'utilisation}
-
-Rundeck est, parmi un large panel de logiciel d'automatisation, un des plus utilisé lorsque l'utilisateur souhaite automatiser la gestion d'un parc informatique depuis une seule machine physique.
+Étant un planificateur de tâches, cron est utilisé pour la planification quotidienne, hebdomadaire, mensuelle ou encore annuelle de tâches de maintenances.
 
 \subsection{Fonctionnement}
-
-Rundeck permet l'exécution de tâches et/ou jobs sur des serveurs distant via une connexion SSH. Rundeck fonctionne sur des réseaux privées où les machines possèdent des adresses IP statiques. 
-\\
-Les adresses IP dynamique des serveurs distants peuvent causer des conflits d'IP et de clés SSH sur le serveur de Rundeck.
-\\
-Rundeck également basé sur le principe maître/esclave (master/slave) : La machine où se trouve l'application Rundeck est le maître tandis que le serveur distant est l'esclave. 
-\\
-De plus, Rundeck montrera un meilleur fonctionnement si celui-ci est installé sur une distribution orientée serveur telles que CentOS. Par défaut, Rundeck écoute sur le port 4440 (http) mais peut également écouté sur le port 4443 (https)
-\\
-Cependant, Rundeck peut être installé sur d'autres distributions telles qu'Ubuntu, Debian ou même Windows à la seule conditions d'avoir les paquets Java correspondants sous peine de rencontrer des problèmes d'exécution ou d'affichage.
-\\
-Rundeck, par défaut, fonctionne avec sa propre base de données, un interface WEB ainsi qu'un compte administrateur dont les identifiants sont "admin" pour le nom d'utilisateur et "admin" pour le mot de passe
+Cron permet la planification et l'exécution automatique de tâches programmées à l'avance. Ces tâches sont réglés dans un fichier contenant la/les commande(s) à exécuter ainsi que l'heure d'exécution. Cependant, cron ne permet pas la ré exécution d'une tâche si celle-ci échoue.
 
 \subsection{Fonctionnalités}
-
-Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilisateur de Rundeck, une gestion optimale d'un parc informatique. Rundeck mets à disposition un choix de plus de 1000 plugins de nature diverses et variées. 
-\\
-Rundeck propose également diverses fonctionnalités notamment l'exécution de commandes/taches à distances
-\\
-Rundeck également très modulable. En effet, Rundeck utilise un base de données pour l'enregistrement de données telles que les jobs, les clés SSH, les utilisateurs qui ont accès à Rundeck.
+Cron permet une planification de tâches pourrons s'exécuter quotidiennement, hebdomadairement, mensuellement ou annuellement. Cette fréquence se règle avec des paramètres
 
 \subsection{Conclusions}
+Cron est un logiciel simple de planification et d'exécution automatique de tâches. Il est considéré comme le "père" des logiciels d'automatisations. Son utilisation simple séduit encore de grands nombres d'adeptes de l'automatisation.
 
 \section{Jenkins}
 
@@ -208,6 +187,8 @@ Sa dernière version en date est la 2.204.1 datant du 18 décembre 2019.
 Jenkins apparaît suite à la cessation d'Hudson par Oracle à la fondation Eclipse. Jenkins devint en 2011, le successeur d'Hudson.
 \\
 Contrairement à Jenkins, Hudson est un framework d'intégration automatique.
+\\
+Jenkins est publié sous la licence MIT
 
 \subsection{Contexte d'utilisation}
 
@@ -230,7 +211,10 @@ De la même manière que Rundeck, Jenkins peut exécuter des jobs, soit sur lui-
 Les jobs constituant les builds peuvent être exécutés sur le serveur Jenkins lui-même ou répartis sur plusieurs machines distantes. Jenkins conserve l'historique de toutes les exécutions des jobs et peut notifier par mail ou par RSS en cas erreur.
 
 \subsection{Fonctionnalités}
+Comme tout les logiciels d'automatisations, Jenkins propose des fonctionnalités similaires à Rundeck, à savoir, exécuter des jobs à distance via SSH,  le transfert de fichiers via SCP ou FTP. A contrario de Rundeck, Jenkins peut très bien s'intégrer avec différents gestionnaires de versions, outils de fabrications ainsi que différents outils de suivi d'incidents/bogues. Grâce à Jenkins des outils de contrôle de qualité de cote mais aussi des tests d'intégrations, performance ou encore des tests de fonctionnement peuvent être effectués. Jenkins permet également le transfert d'artefacts vers un répertoire.
+
 \subsection{Conclusions}
+Malgré d'énormes ressemblances avec Rundeck, Jenkins est un outil d'intégration continue pour la construction automatique de paquets.
 
 \section{Buildbot}
 
@@ -239,20 +223,31 @@ Les jobs constituant les builds peuvent être exécutés sur le serveur Jenkins 
     \caption{Logo de Buildbot}
 \end{figure}
 
+
 \subsection{Présentation}
 Tout comme Jenkins, Buildbot est un logiciel Open-Source d'automatisation
 \\
 Buildbot est un logiciel cross-platform et est disponible sur les systèmes Windows et POSIX (Portable Operating System Interface)
 \\
-Ce logiciel est présentée comme un alternative au projet de Mozilla : \underline{Tindebox}
+Ce logiciel est présentée comme un alternative au projet de Mozilla :
+\underline{Tindebox}
 \\
 Buildbot se démarque de ses concurrents notamment grâce à sa légèreté ainsi que la possibilité de l'installer sur des systèmes d'exploitations portables. En effet, en terme de légèreté, ce programme ne pèse que 4.6MB.
+\\
+Buildbot est également disponible sur la plate forme GitHub et permet également aux utilisateurs de contribuer à son développement
+\\
+Buildbot est distribué sous la licence GPLv2
 \subsection{Historique et versions}
 La première version de Buildbot est sortie le 26 avril 2003. Sa dernière est la 2.0.7 et est daté du 27 février 2020.
 \subsection{Contexte d'utilisation}
 Buildbot est utilisé dans le cadre de la compilation automatique de "builds". De grandes entreprises, telles que Mozilla, Chromium, WebKit et bien d'autres, utilisent Buildbot.
+
 \subsection{Fonctionnement}
+De la même manière que Jenkins, Buildbot propose une automatisation de la construction de paquets.
+
 \subsection{Fonctionnalités}
+Comme tout les logiciels d'automatisation, Buildbot permet une automatisation complète 
+
 \subsection{Conclusions}
 
 \section{Ansible Tower}
@@ -263,11 +258,32 @@ Buildbot est utilisé dans le cadre de la compilation automatique de "builds". D
 \end{figure}
 
 \subsection{Présentation}
+Ansible Tower est un outil d'intégration et de déploiement d'application et/ou de composants divers (comme Nginx ou encore Icinga). 
+\\
+Il fournit une interface WEB dans laquelle, pourra être gérer Ansible, ainsi que de pouvoir, par la suite, créer, supprimer ou encore configurer de nouvelle entité via cette interface.
+\\
+Ansible Tower est un outil en Open Source, créer par Red Hat et Ansible, et est complètement compatible avec le cloud Amazon AWS (de par sa version Ansible), le déploiement de conteneur Docker qui permet un bon fonctionnement avec peu de ressources.
+\\
+De nouvelles versions sont régulièrement disponibles allant de quelque semaine a quelques mois entre elles.
+\\
+Il existe une autre version gratuite appelée AWX qui sert de version beta test pour la version original TOWER. Cette version gratuite peut être utilisé en entreprise mais ne fourniras pas autant de fonctionnalité que la version TOWER.
+
 \subsection{Historique et versions}
+Ansible Tower a été créer pour permettre à Ansible (la plateforme de configuration et de gestion d’ordinateurs) d’être utiliser plus facilement sur les équipements informatiques grâce aux API et console web.
+
 \subsection{Contexte d'utilisation}
+Ansible Tower a été crée pour permettre à Ansible (la plateforme de configuration et de gestion d’ordinateurs) d’être utiliser plus facilement sur les équipements informatiques grâce aux API et console web.
+
+Ansible Tower est utilisé dans le même cadre d'utilisation que Rundeck. Ansible Tower est l'API de son logiciel principal : Ansible. Ansible Tower est également une console et un environnement WEB
+
 \subsection{Fonctionnement}
+Ansible Tower va permettre une meilleure sécurité, une adaptabilité et un champ d’application amélioré comparé à une utilisation de Ansible sans cet outil. Il permet un accès général au contrôle de la plate forme et gère les identifications SSH. Son inventaire peut être relier à une grande variété de ressource du cloud et de créer des processus complexes. 
+\\
+Il va créer des logs de suivis des jobs qu’il lance. Il peut être intégré avec un serveur LDAP ou SAML et d’autres sources d’authentifications. Les outils de lignes de commandes sont facilement utilisables avec Jenkins.
+
 \subsection{Fonctionnalités}
 \subsection{Conclusions}
+Ansible Tower va permettre une meilleure gestion de ce que propose Ansible ainsi qu'une prise en main plus simple et rapide.
 
 \section{JobScheduler}
 
@@ -278,33 +294,110 @@ Buildbot est utilisé dans le cadre de la compilation automatique de "builds". D
 \end{figure}
 
 \subsection{Présentation}
-JobSchecduler est un ordannanceur en Open-Source .
+JobScheduler est un ordonnancer en Open-Source de travaux d'informations et d'automatisation de processus.
+\\
+Il est distribué sous la licence GPLv2
 \subsection{Historique et versions}
-\subsection{Contexte d'utilisation}
+
 \subsection{Fonctionnement}
 \subsection{Fonctionnalités}
 \subsection{Conclusions}
 
-\section{Cron}
+\section{Rundeck}
 
 \begin{figure}[ht]
-    \includegraphics[scale=0.5]{images/crontab.png}
-    \caption{Logo de Crontab}
+    \includegraphics[scale=0.8]{images/rundeck.jpg}
+    \caption{Logo de Rundeck}
 \end{figure}
 
 \subsection{Présentation}
 
-\textit{Cron est la troncation de crontab, lui-même la troncation de chrono table qui signifie « table de planification »}
+Rundeck est un logiciel Open-Source d'automatisation de gestion de parc informatique. Rundeck est définit comme un orchestrateur de tâches. 
 \\
-Cron est un fonctionnalité native des systèmes Unix. C'est un planifiateur de tâches
+Sorti en 2011, il dispose d'une variante entreprise appelé "Rundeck Entreprise" permettant la gestion d'un parc informatique de plus grande envergure. 
+\\
+Rundeck est également un logiciel cross-platform disponible pour les systèmes UNIX, Windows et Mac OS. 
+\\
+Rundeck est hébergé sur la plate forme de développement GitHub, ce qui permet à chaque utilisateur de Rundeck de contribuer à son développement. 
+\\
+Rundeck est en majeur partie, amélioré grâce à ses utilisateurs. Ces derniers peuvent participer au développement de Rundeck par la notification de bugs/fonctionnalités manquantes ou en rejoignant une équipe de développement de Rundeck. 
+\\
+Rundeck est développé en JAVA et propose une interface WEB (requiert les paquets JAVA), une interface CLI (Command-Line Interface) ainsi qu'une API REST.
+
 \subsection{Historique et versions}
+
+Rundeck est apparu en 2011 suite à la demande de plus en plus forte du besoin de pouvoir administrer tous les serveurs d'un parc informatique depuis un seul serveur d'administration central.
+\\
+La dernière version en date est la version 3.2.0 datant du 10 février 2020.
+\\
+Rundeck est diffusé sous la licence Apache Software 2.0
+
 \subsection{Contexte d'utilisation}
+
+Rundeck est, parmi un large panel de logiciel d'automatisation, un des plus utilisé lorsque l'utilisateur souhaite automatiser la gestion d'un parc informatique depuis une seule machine physique.
+
 \subsection{Fonctionnement}
+
+Rundeck permet l'exécution de tâches et/ou jobs sur des serveurs distant via une connexion SSH. Rundeck fonctionne sur des réseaux privées où les machines possèdent des adresses IP statiques. 
+\\
+Les adresses IP dynamique des serveurs distants peuvent causer des conflits d'IP et de clés SSH sur le serveur de Rundeck.
+\\
+Rundeck également basé sur le principe maître/esclave (master/slave) : La machine où se trouve l'application Rundeck est le maître tandis que le serveur distant est l'esclave. 
+\\
+De plus, Rundeck montrera un meilleur fonctionnement si celui-ci est installé sur une distribution orientée serveur telles que CentOS. Par défaut, Rundeck écoute sur le port 4440 (http) mais peut également écouté sur le port 4443 (https)
+\\
+Cependant, Rundeck peut être installé sur d'autres distributions telles qu'Ubuntu, Debian ou même Windows à la seule conditions d'avoir les paquets Java correspondants sous peine de rencontrer des problèmes d'exécution ou d'affichage.
+\\
+Rundeck, par défaut, fonctionne avec sa propre base de données, un interface WEB ainsi qu'un compte administrateur dont les identifiants sont "admin" pour le nom d'utilisateur et "admin" pour le mot de passe
+
 \subsection{Fonctionnalités}
+
+Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilisateur de Rundeck, une gestion optimale d'un parc informatique. Rundeck mets à disposition un choix de plus de 1000 plugins de nature diverses et variées. 
+\\
+Rundeck propose également diverses fonctionnalités notamment l'exécution de commandes/taches à distances
+\\
+Rundeck également très modulable. En effet, Rundeck utilise un base de données pour l'enregistrement de données telles que les jobs, les clés SSH, les utilisateurs qui ont accès à Rundeck.
+
 \subsection{Conclusions}
 
 \section{Mise en place de Rundeck}
 \subsection{Environnement de travail}
+Dans le cadre de notre projet, nous avons choisit un environnement de travail sous Linux ainsi que l'appel de plusieurs outils de virtualisation tels que Vagrant, Oracle VirtualBox ou encore LXC.
+\\
+Notre infrastructure de travail et de démonstration se fait à l'aide 4 machines virtuelles, mais peut cependant être à un nombre plus grand de machines virtuelles. La seule contrainte étant les performances des machines hôtes.
+\\
+\vspace{0.5cm}
+\\
+\textbf{Infrastructure :}
+\begin{itemize}
+    \item Machine virtuelle \textbf{Rundeck} sous CentOS
+    \item Machine virtuelle \textbf{web} sous Debian
+    \item Machine virtuelle \textbf{mail} sous Debian
+    \item Machine virtuelle \textbf{nfs} sous Debian
+\end{itemize}
+\vspace{0.5cm}
+\textbf{Informations relatives à chaque machine virtuelle :}
+\vspace{0.5cm}
+\\
+\textbf{Rundeck :} 
+\\
+Le système d'exploitation choisit est CentOS de par son optimisation pour les serveurs. Cette VM, appelée "Rundeck", du même nom que l'outil d'orchestration installé sur cette dernière. Cette VM est la "VM Maître" étant donné qu'elle supervise et gérer toutes les autres VMs qui se trouvent sous son autorité. Cette machine virtuelle est générée grâce à une boxe Vagrant 
+\\
+\vspace{0.5cm}
+\\
+\textbf{web :}
+Cette machine virtuelle joue le rôle d'un serveur web. Cette machine est installé avec un système Debian GNU/Linux, ainsi que tous les composants et paquets requis pour assurer le bon fonctionnement d'un serveur web simple. Cette machine virtuelle est générée grâce à une boxe Vagrant 
+\\
+\vspace{0.5cm}
+\\
+\textbf{mail :}
+Cette machine virtuelle joue le rôle d'un serveur mail. Cette machine est installé avec un système Debian GNU/Linux, ainsi que tous les composants et paquets requis pour assurer le bon fonctionnement d'un serveur mail. Cette machine virtuelle est générée grâce à une boxe Vagrant 
+\\
+\vspace{0.5cm}
+\\
+\textbf{nfs :}
+Cette machine virtuelle constitue un point de montage afin de pouvoir partager des fichiers entre chaque machine. Cette machine est installé avec un système Debian GNU/Linux, ainsi que tous les composants et paquets requis pour assurer le bon fonctionnement d'un point de montage de partage de fichiers. Cette machine virtuelle est générée grâce à une boxe Vagrant 
+
 \subsection{Installation}
 \subsubsection{Exigences système}
 
@@ -400,7 +493,7 @@ Ci-dessous, la disposition DEB/RPM :
 \end{forest}
 
 \newpage
-
+\\
 \begin{forest}
   for tree={
     font=\ttfamily,
@@ -472,6 +565,7 @@ Ci-dessous, la disposition de l'interface de Rundeck :
 \end{forest}
 \\
 \vspace{0.5cm}
+\\
 \begin{forest}
   for tree={
     font=\ttfamily,
@@ -519,7 +613,7 @@ Dans le cadre de notre projet, nous avons appliqué une configuration simple, im
 \\
 \textit{realm.properties :} Fichier de configuration des propriétés des utilisateurs
 
-\subsubsection{URL d'accès}
+\subsubsection{Interface de connexion}
 Rundeck est fourni, par défaut, avec une interface web dont l'URL est : 
 \\
 \underline{\url{http://localhost:4440}}
@@ -527,7 +621,108 @@ Rundeck est fourni, par défaut, avec une interface web dont l'URL est :
 \\
 Cette URL peut, toutefois être modifié, en éditant les fichiers \textit{framework.properties} et \textit{rundeck-config.properties}.
 \\
-Le paramètre \textit{framework.rundeck.url} contient l'URL de base de Rundeck et peut être remplacé par une adresse au choix
+Le paramètre \textit{framework.rundeck.url} contient l'URL de base de Rundeck et peut être remplacé par une adresse au choix.
+\\
+Lors de la première utilisation de Rundeck suivant son installation, les identifiants de connexion par défaut son \textit{admin} pour l'"username" et \textit{admin} pour le mot de passe.
+\\
+Ces identifiants peuvent être changés en éditant le fichier \textit{realm.properties}
+\\
+Des comptes utilisateurs peuvent être également ajouté depuis ce même fichier
+\\
+\begin{figure}[ht]
+    \includegraphics[scale=0.23]{images/connexion.png}
+    \caption{Interface de connexion}
+\end{figure}
+\\
+\vspace{0.5cm}
+\\
+\textit{Username : admin}
+\\
+\textit{Password : admin}
+
+\subsubsection{Création d'un projet}
+La particularité de Rundeck est de pouvoir fonctionner sous forme de projet. Cette fonctionnalité est native à Rundeck et est aussi indispensable.
+\\
+En effet, les projets permettent de gérer plusieurs parcs informatiques d'une même entreprise depuis une seule et unique machine.
+\\
+\begin{figure}[ht]
+    \includegraphics[scale=0.23]{images/project.png}
+    \caption{Interface de connexion}
+\end{figure}
+\\
+Lors de la création du projet, plusieurs onglets sont mis à dispositions afin de permettre une configuration complète d'un projet
+\\
+\begin{itemize}
+    \item Les détails du jobs \textbf{"Details"}
+    \item Nettoyage automatique de l'historique d'exécution \textbf{"Execution History Clean"}
+    \item Paramètres d'exécution et planification \textbf{"Execution Mode"}
+    \item Personnalisation de l'interface utilisateur \textbf{"User Interface"}
+    \item Méthode par défaut d'exécution sur un node \textbf{"Default Node Executor"}
+    \item Méthode par défaut de copie de fichier sur un node \textbf{"Default File Copier"}
+\end{itemize}
+\\
+\vspace{0.5cm}
+\\
+\textbf{Informations relatives à chaque onglet :}
+\\
+\vspace{0.5cm}
+\\
+\textbf{Onglet "Details" :}
+\\
+L'utilisateur peut définir, depuis cet onglet, le nom ainsi qu'une courte description du projet
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Execution History Clean" :}
+\\
+\textit{trad : Nettoyage de l'historique d'exécution}
+\\
+Cet onglet permet de régler le/les fréquences de nettoyage automatiques des exécutions. Ce nettoyage peut être activé ou désactivé à la demande de l'utilisateur.
+\\
+Des valeurs par défaut sont imposé par Rundeck telles que le nombre de jours que l'on souhaite garder l'historique (ex: Rundeck supprimera l'historique au bout de 60 jours.
+\\
+Rundeck propose un nombre d'exécution minimum fixé à 50 exécution, une taille maximum de l'historique limité à 500Mo ainsi que la possibilité de paramétré via \textbf{une expression de type cron}, le nettoyage automatique de l'historique.
+\\
+Ces valeurs sont les valeurs par défaut imposé par Rundeck mais peuvent être modifié par l'utilisateur de Rundeck.
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Execution Mode" :}
+\\
+\textit{trad : Mode d'exécution}
+\\
+Cet onglet permet d'activer/désactiver l'exécution des jobs, des commandes ad-hox ainsi que la planifiaction des jobs et commandes ad-hoc.
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "User Interface" :}
+\\
+\textit{trad : Interface utilisateur}
+\\
+Depuis cet onglet, un README ainsi qu'un MOTD ("Message Of The Day") peuvent affiché sur certaines page lorsque qu'un utilisateur de Rundeck se connecte à l'interface
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Default Node Executor" :}
+\\
+\textit{trad : Exécuteur de node par défaut }
+\\
+Par défaut, Rundeck règle l'exécuteur sur SSH, c'est-à-dire que les jobs/commandes seront exécutes via SSH. Cette méthode peut toutefois être changée si Rundeck possède des machines d'une autre distributions que Linux sous son contrôle. Rundeck propose plusieurs autres exécuteurs. Néanmoins, l'administrateur souhaite utiliser un autre exécuteur qui n'est pas présent dans la liste, ce dernier peut être télécharger via la liste des plugins (si celui se trouve à l'intérieur)  
+\\
+Si des clés SSH et passphrases sont stockés directement sur Rundeck, il est possible de spécifier les chemins de fichiers afin de permettre l'accès via ces protocoles
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Default File Copier" :}
+\\
+\textit{trad : Copier de fichier par défaut}
+\\
+Même principe que l'onglet précèdent, celui ci permet de modifié l'utilitaire de transfert de fichiers d'une machine à une autre via Rundeck.
+\\
+Plusieurs méthodes sont mis à disposition par Rundeck et d'autres méthodes peuvent être téléchargées depuis la liste des plugins si la méthode demandé par l'administrateur ne se trouve pas dans la liste fournis par Rundeck
+\\
+Si des clés SSH et passphrases sont stockés directement sur Rundeck, il est possible de spécifier les chemins de fichiers afin de permettre l'accès via ces protocoles
+\\
 
 \subsubsection{Définition de la méthode de stockage}
 
@@ -543,14 +738,13 @@ Méthode de stockage :
 \subsubsection{Définition des nodes}
 Un node permet d'ajouter un serveur, une machine que l'on souhaite automatiser avec Rundeck.
 \\
-Les nodes sont définis, communément, dans un fichier au format XML mais peuvent également être définis dans un fichier au format YAML et JSON. Cette définition doit suivre une syntaxe imposé par Rundeck. On peut définir autant de nodes que l'on souhaite dans ce fichier.
+Les nodes sont définis dans un fichier au format XML mais peuvent également être définis dans un fichier au format YAML et JSON. Cette définition doit suivre une syntaxe imposé par Rundeck. On peut définir autant de nodes que l'on souhaite dans ce même fichier.
 \vspace{0.5cm}
 \\
 \textit{Ces exemples sont à titres indicatifs et sont fournis dans la documentation de Rundeck}
 \vspace{0.5cm}
 \\
-Ci-dessous, la déclaration d'un node dans Rundeck, crée par l'utilisateur au format \textbf{XML}
-\vspace{0.5cm}
+\textbf{Syntaxe XML :}
 \\
 \begin{lstlisting}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -569,8 +763,7 @@ Ci-dessous, la déclaration d'un node dans Rundeck, crée par l'utilisateur au f
 \end{lstlisting}
 
 \vspace{0.5cm}
-Ci-dessous, la déclaration d'un node dans Rundeck, crée par l'utilisateur au format \textbf{JSON}
-\vspace{0.5cm}
+\textbf{Syntaxe JSON :}
 \\
 
 \begin{lstlisting}
@@ -602,8 +795,8 @@ Ci-dessous, la déclaration d'un node dans Rundeck, crée par l'utilisateur au f
 \end{lstlisting}
 
 \vspace{0.5cm}
-Ci-dessous, la déclaration d'un node dans Rundeck, crée par l'utilisateur au format \textbf{YAML}
-\vspace{0.5cm}
+\\
+\textbf{Syntaxe YAML :}
 \\
 
 \begin{lstlisting}
@@ -620,7 +813,7 @@ Venkman.local:
 \end{lstlisting}
 
 \vspace{0.5cm}
-Cette configuration est identique pour chaque ordinateur/serveur que l'on souhaite automatiser.
+Cette configuration est identique pour chaque ordinateur/serveur que l'on souhaite automatiser et peut également se faire dans plusieurs fichiers dés lors que l'on utilise une base de données. Dans notre cas, toutes les machines sont enregistrées dans un seul fichier.
 \vspace{0.5cm}
 \\
 \textbf{Informations sur la syntaxe}
@@ -637,18 +830,105 @@ Cette configuration est identique pour chaque ordinateur/serveur que l'on souhai
 \end{itemize}
 \vspace{0.5cm}
 La définition d'un node dans le format YAML ou JSON diffère légèrement du format XML.
+
 \subsubsection{Clés SSH}
-Rundeck requiert les clés SSH de chaque machine qu'il a sous son contrôle
+Rundeck requiert les clés SSH de chaque machine qu'il a sous son contrôle. Ces clés peuvent être créées et enregistrées sur les machines en prenant soins d'être connecté avec un utilisateur dédié. Ces clés peuvent également être enregistré sur la base de données de Rundeck
 
 \subsubsection{Définition des jobs}
-Un job est décomposé en plusieurs "step"
-
-\subsection{Utilisation}
-\subsubsection{Pilotage de service}
-\subsubsection{Création de jobs}
-La création d'un job peut être fait directement sur l'interface Rundeck. 
+La définition d'un "job" est l'étape la plus importante. En effet, ce système est l'atout principal de Rundeck.
 \\
-Rundeck propose également à l'utilisateur de pouvoir exécuter un script provenant d'un site web externe, ou même de pouvoir exécuter un script déjà écrit à l'avance. 
+Un job est décomposé en plusieurs étapes (\textit{step en anglais}). Une étape correspond à une commande ou un script
+\\
+Les jobs se définissent de la même manière, et ceux peut importe la manière dont Rundeck est configuré.
+\\
+La définition d'un job se fait sur l'interface WEB et propose plusieurs onglets de configurations :
+
+\begin{itemize}
+    \item Les détails du jobs "\textbf{Details}"
+    \item L'ordre d'exécution "\textbf{Workflow}"
+    \item Les noeuds "\textbf{Nodes}"
+    \item La planification de l'exécution "\textbf{Schedule}"
+    \item Les notifications "\textbf{Notifications}"
+    \item Les options diverses "\textbf{Others}"
+\end{itemize}
+\\
+\vspace{0.5cm}
+\\
+\textbf{Informations relatives à chaque onglet :}
+\\
+\vspace{0.5cm}
+\\
+\textbf{Onglet "Details" :}
+\\
+L'utilisateur peut définir, depuis cet onglet, le nom ainsi qu'une courte description du job
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Workflow" :}
+\\
+\textit{trad : flux de travail}
+\\
+Cet onglet permet la définition de la méthode d'exécution. Cet onglet permet également de définir le/les tâches à exécuter.
+\\
+Rundeck propose lors du paramétrage, de continuer l'exécution du jobs même si une "step" échoue. 
+\\
+Rappel : une step n'est qu'une petite partie d'un job et non le job complet.
+\vspace{0.5cm}
+\\
+\textbf{Méthodes d'exécution :}
+\begin{itemize}
+    \item Node First : Exécute toute les étapes d'un job sur le noeud 1, puis sur le noeud 2 etc...
+    \item Parallel : Exécution de tous en parallèle et en même temps sur tous les noeuds
+    \item Sequential : Le step 1 sera joué sur le noeud 1 puis noeuds 2 puis noeud X ensuite le step 2 ainsi de suite
+\end{itemize}
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Nodes" :}
+\\
+\textit{trad : Noeuds}
+\\
+Cet onglet permet de définir les nodes sur lequel/lesquels le job va être exécuté. Rundeck propose à l'utilisateur si le job soit être soit lancé sur la machine qui contient Rundeck, soit sur les machines que Rundeck à sous son contrôle.
+\\
+Beaucoup de paramètres sont disponibles tels que les filtres où l'administrateur peut décider sur quels noeuds il souhaite exécuter ce job. Cette notion implique de bien rédiger le fichier contenant les nodes.
+\\
+Depuis cette onglet, l'administrateur peut également dire à Rundeck que faire pour une situation donnée (ex: Si le node échoue, on peut soit arrêter complètement le job, soit continuer sur les nodes restants.
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Schedule" :}
+\\
+\textit{trad : Planifier}
+\\
+Comme son nom l'indique, cet onglet permet de programmer l'heure d'exécution du job, mais il permet également de définir la fréquence d'exécution.
+\\
+La possibilité de planification peut être désactivé depuis cet onglet, de même pour l'exécution.
+\\
+Rundeck propose 2 manières de planifier un job :  De manière simple en sélectionnant l'heure et la fréquence, ou alors via une expression cron 
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Notifications" :}
+\\
+Depuis cet onglet, peut être définit la manière dont sera notifié l'administrateur de Rundeck.
+\\
+Une notification peut être envoyée en cas de succès de job, d'échec, une notification au démarrage, sur des nouvelles tentatives d'exécution de jobs si celui-ci échoue une première fois.
+\\
+Deux méthodes de notifications sont disponibles : Webhook ou Email
+\\
+\textbf{Email} :  Mail contenant diverses informations telles que le job exécuter, l'heure d'exécution, son statut (réussite/échec/démarrage/nouvelle tentative), la/les machine(s) où le job à était exécuté. Toutes ces informations sont envoyés à l'administrateur de Rundeck
+\\
+\textbf{Webhook} : Un webhook contiendra les mêmes informations qu'un mail et se feront au travers d'un rappel HTTP. Cela peut être traduis par une notification en temps réel 
+\\
+\vspace{0.2cm}
+\\
+\textbf{Onglet "Others" :}
+\\
+\textit{trad : Autres/Divers}
+\\
+Cet onglet est essentiellement consacrés au logs et aux tentatives sur les jobs, on peut définir la nature du fichier de logs (fichier classique ou fichier pour debug) ainsi que la taille d'un fichier de logs (ex : 100 lignes par fichiers), autoriser les multiples exécution du job, le nombre de tentatives, le temps de réponses d'un job, le delais entre tentatives
+\\
+\section{Conclusions}
 
 \newpage
 \section{Bibliographie}
