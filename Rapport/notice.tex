@@ -1,0 +1,430 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tgheros}
+\usepackage{listings}
+\renewcommand{\familydefault}{\sfdefault}
+\lstset
+{ 
+    basicstyle=\footnotesize,
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+\title{Notice d'installation}
+\date{Avril 2020}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Cette notice d'installation à pour but d'installer et configurer Rundeck de manière plus claire et plus simple . Cette notice est inspirée de la documentation officielle de Rundeck.
+\\
+Cette notice est essentiellement centrée sur l'installation et la configuration de Rundeck sur Linux. Certaines procédures d'installation s'opèrent sur d'autres systèmes d'exploitations tels que Windows.
+\\
+Les liens vers ces procédures d'installation sont disponibles dans la bibliographie
+\\
+Certaines procédures d'installation étant plus longues et complexes que d'autres, les liens vers ces procédures sont disponibles dans la bibliographie.
+
+\section{Exigences systèmes}
+\subsection{Systèmes supportés}
+\begin{itemize}
+    \item Linux : Distributions récentes sont plus susceptibles de pouvoir faire marcher Rundeck
+    \item Windows : XP, Server ou supérieur
+    \item Mac OS : OS X 10.4 ou supérieur   
+\end{itemize}
+    
+\subsection{Matériel}
+\begin{itemize}
+    \item OS Supportés : Red Hat Enterprise Linux - CentOS - Ubuntu/Debian - Windows Server
+    \item Version courante et supportée de Mozilla Firefox ou Google Chrome
+    \item 2 CPUs (2 CPUs par membres)
+    \item 4 GB de mémoire RAM minimum (taille variable en fonction de la taille du parc)
+    \item 20 GB d'espace disque minimum (taille variable en fonction de la taille du parc)
+    \item Base de données : Mysql - MariaDB - Postgre - Oracle
+    \item Stockage des logs : Système de fichier - Stockage S3
+    \item Amazon EC2 : Instance m3.medium ou plus grand (dépend du nombres d'hôte) 
+\end{itemize}
+
+\subsection{Java}
+Rundeck est basé sur un servlet Java et le processus d'installation requiert la version 8 de Java
+\\
+OpenJDK et Sun/Oracle JVM peuvent être utilisé
+\\
+Pour vérifier la version installée de Java : 
+\begin{lstlisting}
+    $ java -version
+\end{lstlisting}
+Si la version de Java n'est pas la bonne, il est nécessaire d'installer la bonne version (\textbf{Lien de la procédure dans la bibliographie})
+
+\subsection{Réseau}
+Rundeck écoute par défaut sur les ports 4440 (http) et 4443 (https)
+\\
+Il est nécessaire de vérifier que ces ports soit libres : 
+\begin{lstlisting}
+    $ netstat -an | egrep '4440|4443'
+\end{lstlisting}
+Si les ports sont bels et biens libres, un résultat du type (voir ci-dessous) doit être obtenue.
+\begin{lstlisting}
+    tcp46      0      0  *.4440          *.*         LISTEN
+\end{lstlisting}
+
+Il est également nécessaire de vérifier si le port 22 est, quant à lui, bien ouvert. Le port 22 est utilisé pour les liaisons SSH et Rundeck fonctionne sur des noeuds à distances via cette liaison
+
+\subsection{Base de données}
+Par défaut, Rundeck dispose et utilise sa propre base de données embarquée. Cette base de données embarquée est de type H2, c'est-à-dire que c'est un système de gestion de base de données relationnelles écrit en Java. Si vous n'avez jamais utilisé Rundeck, il est plus prudent de tester Rundeck avec cette base de données embarquée.
+\\
+Par manque de sécurité, il est grandement déconseillé de l'utiliser en production.
+\\
+Il est recommandé d'utiliser une base données externe. Rundeck prends en charge les bases de données de type Mysql, MariaDB, Oracle et Postgre
+\vspace{0.5cm}
+\\
+\textbf{Configuration de la base de données au chapitre Configuration - Base de données}
+
+\subsection{Enregistrements des logs}
+Rundeck enregistre toutes les données de tous les jobs exécutés dans un "Logstore".
+Un Logstore est l'emplacement où seront stockés tous les fichiers de logs.
+\\
+Rundeck, par défaut, utilise le système de fichier de la machine locale.
+\\
+L'emplacement de ce Logstore peut être modifié dans le fichier "framework.properties" à la ligne "framework.logs.dir"
+
+\newpage
+
+\section{Installation}
+\subsection{Exécutable WAR}
+L'installation de Rundeck avec cet exécutable se fait en plusieurs étapes :
+\\
+\textbf{ATTENTION : Vérifier que l'on dispose bien de la version 1.8 de Java}
+\vspace{0.5cm}
+\\
+1. Téléchargement de l'archive : \url{https://docs.rundeck.com/download/war/}
+\vspace{0.3cm}
+\\
+2. Définition  de la variable environnement RDECK\_BASE
+\begin{lstlisting}
+    export RDECK_BASE=$HOME/rundeck; #Emplacement au choix
+\end{lstlisting}
+
+3. Définition du répertoire d'installation
+\begin{lstlisting}
+    mkdir -p $RDECK_BASE
+\end{lstlisting}
+
+4. Copie de l'archive dans le répertoire d'installation
+\begin{lstlisting}
+    cp rundeck-3.2.5-20200407.war $RDECK_BASE
+\end{lstlisting}
+
+5. Se placer dans ce répertoire et lancer l'exécutable
+\begin{lstlisting}
+    cd $RDECK_BASE
+    java -Xmx4g -jar rundeck-3.2.5-20200407.war
+\end{lstlisting}
+
+6.Veuillez attendre l'apparition du message suivant :
+\begin{lstlisting}
+    Grails application running at http://ecto1.local:4440 in environment: production
+\end{lstlisting}
+
+7. Mise à jour de l'environnement shell
+\begin{lstlisting}
+    PATH=$PATH:$RDECK_BASE/tools/bin
+    MANPATH=$MANPATH:$RDECK_BASE/docs/man
+\end{lstlisting}
+
+8. Vérifier/Démarrer le service rundeckd
+\begin{lstlisting}
+    sudo systemctl status rundeckd
+    sudo systemctl start rundeckd
+\end{lstlisting}
+
+Un message d'erreur s'affichera dans le cas où vous utiliseriez une version non supportée de Java
+\begin{lstlisting}
+    Exception in thread "main" java.lang.UnsupportedClassVersionError: Bad version number in .class file
+\end{lstlisting}
+
+\subsubsection{Première connexion}
+Naviguer, à l'aide d'un navigateur (Firefox ou Chrome), jusqu'à l'adresse \url{ http://localhost:4440/}
+\\
+Lors de la première connexion, les identifiants de connexion sont "admin" pour l'identifiant et "admin" pour le mot de passe.
+\\
+Il possible de modifier ces identifiants.
+\vspace{0.5cm}
+\\
+\textbf{Configuration des utilisateurs au chapitre Configuration - Utilisateurs}
+
+\subsection{Debian/Ubuntu}
+Que ce soit pour Rundeck ou Rundeck Entreprise, il est possible l'installer de plusieurs manières : Avec "apt-get" ou depuis un .deb
+\\
+\textbf{ATTENTION : Vérifier que l'on dispose bien de la version 1.8 de Java}
+
+\subsubsection{Rundeck Source et Entreprise (apt-get)}
+\textbf{Rundeck Source}
+\begin{lstlisting}
+    echo "deb https://rundeck.bintray.com/rundeck-deb /" | sudo tee -a /etc/apt/sources.list.d/rundeck.list
+    curl 'https://bintray.com/user/downloadSubjectPublicKey?username=bintray' | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-get install rundeck
+\end{lstlisting}
+
+\textbf{Rundeck Entreprise}
+\begin{lstlisting}
+    echo "deb https://rundeckpro.bintray.com/deb stable main" | sudo tee /etc/apt/sources.list.d/rundeck.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 379CE192D401AB61
+    sudo apt-get update
+    sudo apt-get install rundeckpro-enterprise
+\end{lstlisting}
+
+Dans le cas où de nouvelle mise à jours, exécutez les commandes :
+\begin{lstlisting}
+    sudo apt-get update
+    sudo apt-get install rundeck #Si mise a jour de Rundeck
+    sudo apt-get install rundeckpro-entreprise #Si mise a jour de Rundeck Entreprise
+\end{lstlisting}
+
+\subsubsection{Rundeck Source et Entreprise (.deb)}
+Rundeck Source : \url{http://rundeck.org/download/deb/}
+\\
+Rundeck Entreprise : \url{http://download.rundeck.com/eval/} 
+\\
+Télécharger le .deb souhaité et exécuter la commande : 
+\begin{lstlisting}
+    sudo dpkg -i <nom du .deb>
+\end{lstlisting}
+
+Si un message d'erreur apparaît, exécuter la commande 
+\begin{lstlisting}
+    sudo apt-get install -f
+\end{lstlisting}
+Peut importe la version et la méthode d'installation choisie, ne pas oublier de vérifier/démarrer le service rundeckd
+\begin{lstlisting}
+    sudo systemctl status rundeckd
+    sudo systemctl start rundeckd
+\end{lstlisting}
+
+\subsubsection{Première connexion}
+Naviguer, à l'aide d'un navigateur (Firefox ou Chrome), jusqu'à l'adresse \url{ http://localhost:4440/}
+\\
+Lors de la première connexion, les identifiants de connexion sont "admin" pour l'identifiant et "admin" pour le mot de passe.
+\\
+Il possible de modifier ces identifiants.
+\vspace{0.5cm}
+\\
+\textbf{Configuration des utilisateur au chapitre Configuration - Utilisateurs}
+
+\subsection{CentOS/Red Hat Linux}
+\textbf{ATTENTION : Vérifier que l'on dispose bien de la version 1.8 de Java}
+
+\subsubsection{Rundeck Source et Entreprise(yum)}
+\textbf{Rundeck Source}
+\begin{lstlisting}
+    rpm -Uvh http://repo.rundeck.org/latest.rpm
+    sudo yum install rundeck java
+\end{lstlisting}
+
+\textbf{Rundeck Entreprise}
+\begin{lstlisting}
+    curl https://bintray.com/rundeckpro/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-rundeckpro-rpm.repo
+    sudo yum install java rundeckpro-enterprise
+\end{lstlisting}
+
+Dans le cas où de nouvelle mise à jours, exécutez les commandes :
+\begin{lstlisting}
+    sudo yum update rundeck #Si mise a jour de Rundeck
+    sudo yum update rundeckpro-enterprise #Si mise a jour de Rundeck Entreprise
+\end{lstlisting}
+
+\subsubsection{Rundeck Source et Entreprise (rpm)}
+Rundeck Source : \url{http://rundeck.org/download/deb/}
+\\
+Rundeck Entreprise : \url{http://download.rundeck.com/eval/} 
+\\
+Télécharger le .deb souhaité et exécuter la commande : 
+\begin{lstlisting}
+    sudo rpm -i <nom du paquet rpm>
+\end{lstlisting}
+
+Peut importe la version et la méthode d'installation choisie, ne pas oublier de vérifier/démarrer le service rundeckd
+\begin{lstlisting}
+    sudo systemctl status rundeckd
+    sudo systemctl start rundeckd
+\end{lstlisting}
+
+\subsubsection{Première connexion}
+Naviguer, à l'aide d'un navigateur (Firefox ou Chrome), jusqu'à l'adresse \url{ http://localhost:4440/}
+\\
+Lors de la première connexion, les identifiants de connexion sont "admin" pour l'identifiant et "admin" pour le mot de passe.
+\\
+Il possible de modifier ces identifiants.
+\vspace{0.5cm}
+\\
+\textbf{Configuration des utilisateur au chapitre Configuration - Utilisateurs}
+
+\subsection{Depuis les sources}
+Télécharger le répertoire sur GitHub : \url{https://github.com/rundeck/rundeck} 
+\\
+Depuis ce répertoire, il est possible de créer un exécutable WAR ou un paquet RPM/Deb
+\\
+\textbf{ATTENTION : Vérifier que l'on dispose bien de la version 1.8 de Java}
+\\
+Pour cela, exécuter les commandes suivantes :
+\begin{lstlisting}
+    ./gradlew build
+    make rpm # Pour la construction du paquet RPM et requiert la commande rpm
+    make deb # Pour la construction du paquet Deb et requiert la commande dpkg
+    make clean # Nettoyer l'installation
+\end{lstlisting}
+
+\subsection{Docker}
+\textbf{Docker requis, lien en bibliographie}
+\\
+Rundeck Source : \url{https://hub.docker.com/r/rundeck/rundeck/}
+\\
+Rundeck Entreprise : \url{https://hub.docker.com/r/rundeckpro/enterprise/}
+\\
+Veuillez à bien lire les pages, des informations complémentaires sur l'utilisation de Rundeck dans Docker sont mises à disposition.
+
+\subsubsection{Rundeck Source}
+\begin{lstlisting}
+    docker run --name some-rundeck -v data:/home/rundeck/server/data rundeck/rundeck:3.2.5
+\end{lstlisting}
+
+\subsubsection{Rundeck Entreprise}
+\begin{lstlisting}
+    docker run \
+        --name some-rundeck \
+        -v data:/home/rundeck/server/data \
+        -e RUNDECK_DATABASE_DRIVER=com.mysql.jdbc.Driver \
+        -e RUNDECK_DATABASE_USERNAME="${DB_USERNAME}" \
+        -e RUNDECK_DATABASE_PASSWPRD="${DB_PASSWORD}" \
+        -e RUNDECK_DATABASE_URL="${DB_URL}" \
+        rundeckpro/enterprise:3.2.5
+\end{lstlisting}
+
+
+\newpage
+\section{Configuration}
+\subsection{Base de données}
+Afin de pouvoir utiliser une base de données spécifique, il faut choisir quel système de gestion de base de données utiliser. Rundeck supporte plusieurs SGBD : Mysql - MariaDB - Postgre - Oracle.
+\\
+La procédure d'installation, de configuration et d'utilisation de MySQL est relativement longue.
+\\
+Lien disponible dans la bibliographie
+
+\subsubsection{Oracle}
+Télécharger le dernier driver à l'adresse :
+\\ 
+\url{https://www.oracle.com/database/technologies/jdbc-upc-downloads.html}
+\\
+Copier le fichier "ojdbc7.jar" dans le dossier :
+\begin{itemize}
+    \item \$RDECK\_BASE/server/lib pour les installations via les archives .war
+    \item /var/lib/rundeck/lib pour les installations via RPM ou .deb
+\end{itemize}
+Mettre à jour le fichier "rundeck-config.properties" avec les information suivantes :
+\begin{lstlisting}
+    dataSource.url = jdbc:oracle:thin:@127.0.0.1:1521:orcl # (change server name and instance name)
+    dataSource.driverClassName = oracle.jdbc.driver.OracleDriver
+    dataSource.username = XXXXXX
+    dataSource.password = XXXXXXX
+    dataSource.dialect = org.rundeck.hibernate.RundeckOracleDialect
+    dataSource.properties.validationQuery = SELECT 1 FROM DUAL
+\end{lstlisting}
+
+\subsubsection{Postgre}
+Lien vers la procédure d'installation de Postgre disponible dans la bibliographie
+\\
+Avant toutes choses, veuillez à bien vérifier si Postgre est bien démarré
+\\
+Passer sur l'utilisateur postgres et utiliser la CLI de postgre
+\begin{lstlisting}
+    su postgres
+    psql
+\end{lstlisting}
+Création de la base de données
+\begin{lstlisting}
+    postgres=# create database rundeck;
+\end{lstlisting}
+Créer et autoriser les privilèges pour l'utilisateur
+\begin{lstlisting}
+    postgres=# create user rundeckuser with password 'rundeckpassword';
+    postgres=# grant ALL privileges on database rundeck to rundeckuser;
+\end{lstlisting}
+Mettre à jour le fichier "rundeck-config.properties" avec les information suivantes :
+\begin{lstlisting}
+    dataSource.driverClassName = org.postgresql.Driver
+    dataSource.url = jdbc:postgresql://myserver/rundeck
+    dataSource.username=rundeckuser
+    dataSource.password=rundeckpassword
+\end{lstlisting}
+Les versions récentes de Rundeck comprennent le connecteur PostgreSQL
+
+\subsection{Liaison SSH}
+Rundeck nécessite la/les clé(s) SSH de/des machine(s) qu'il a sous son contrôle. Rundeck créer un utilisateur rundeck sur la machine sur lequel il est installé. Il est recommandé de créer un utilisateur rundeck sur toutes les machines qu'il a sous son contrôle.
+\\
+Rundeck va se connecter de manière automatique à l'utilisateur rundeck se trouvant sur la machine distante
+\\
+Il suffit de créer une clé SSH avec l'utilisateur rundeck sur la machine distante et de la copier sur le serveur de Rundeck
+
+\subsection{Utilisateurs}
+Il est possible de créer des utilisateurs. Une syntaxe est imposée et est disponible dans le fichier realm.properties.
+\\
+En suivant la syntaxe, l'administrateur de Rundeck peut créer autant d'utilisateur qu'il souhaite.
+\\
+Les droits des utilisateurs sont spécifiés dans ce même fichier mais également dans le fichier aclpolicy
+
+\subsection{Annuaire LDAP}
+La configuration d'un annuaire LDAP avec Rundeck est possible mais est assez complexe. Le lien vers cette procédure de configuration est disponible dans la bibliographie
+
+\subsection{Ansible}
+L'intégration d'Ansible à Rundeck est simple et demande de suivre les étapes suivantes
+\begin{itemize}
+    \item Télécharger le fichier .jar depuis GitHub 
+    \item Copier le fichier .jar dans le dossier /var/lib/rundeck/libext (pour les installations .deb et rpm)
+    \item Créer un nouveau projet
+    \item Choisir "Ansible Resource Model Source" comme modèle de resources
+    \item Choisir "Ansible Ad-Hoc Node Executor" comme exécuteur de node par défaut
+    \item Choisir "Ansible File Copier" comme copier de fichier par défaut
+    \item Sauvegarder
+    \item Tester les commandes
+\end{itemize}
+
+\newpage
+\section{Bibliographie}
+\begin{itemize}
+    \item Installation d'OpenJDK 8 :
+    \\ \url{https://openjdk.java.net/install/}
+    \item Installation et Configuration de Rundeck :
+    \\ \url{https://docs.rundeck.com/docs/administration/install/}
+    \item Installation de Rundeck sur Windows :
+    \\ https://docs.rundeck.com/docs/administration/install/windows.html\#folder-structure
+    \item Procédure d'installation de Rundeck sur un Tomcat Servlet :
+    \\ \url{https://docs.rundeck.com/docs/administration/install/tomcat.html#installation-on-linux}
+    \item Procédure d'installation de Docker en fonction de la distribution hôte : 
+    \\ \url{https://docs.docker.com/get-docker/}
+    \item Ansible intégration :
+    \\ \url{https://github.com/Batix/rundeck-ansible-plugin}
+    \item La procédure de d'installation, de configuration et d'utilisation de MySQL :
+    \\ \url{https://docs.rundeck.com/docs/administration/configuration/database/mysql.html}
+    \item Procédure d'installation de Postgre :
+    \\ \url{https://wiki.postgresql.org/wiki/Detailed_installation_guides}
+    \item Procédure d'authentification avec LDAP :
+    \\ \url{https://docs.rundeck.com/docs/administration/security/authentication.html#propertyfileloginmodule}
+    \item Rundeck et Ansible :
+    \\ \url{https://github.com/Batix/rundeck-ansible-plugin}
+\end{itemize}
+
+\end{document}
