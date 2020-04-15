@@ -261,7 +261,9 @@ Si l'installation de cron est nécessaire, il suffit de télécharger cron depui
 Cette commande peut varier selon la distribution mais le paquet de cron porte, quant à lui, le même nom.
 
 \subsection{Conclusion}
-Cron est un programme simple de planification et d'exécution automatique de tâches. Il est considéré comme étant le "père" des logiciels d'automatisations. Son utilisation simple séduit encore de grands nombres d'adeptes de l'automatisation.
+Cron est un programme simple de planification et d'exécution automatique de tâches. 
+\\
+Il est considéré comme étant le "père" des logiciels d'automatisations. Son utilisation simple séduit encore de grands nombres d'adeptes de l'automatisation.
 \\
 Après 45 ans de service , Cron reste populaire de par sa simplicité et continue de séduire un grand nombre d'utilisateurs à travers le monde.
 
@@ -327,6 +329,12 @@ Les jobs construisant les builds, ils peuvent être exécutés sur le serveur Je
 Jenkins propose un large panel de fonctionnalités comme exécuter des jobs à distance via SSH, le transfert de fichiers via SCP ou FTP. 
 \\
 Jenkins peut très bien s'intégrer avec différents gestionnaires de versions, outils de fabrications ainsi que différents outils de suivi d'incidents/bogues. 
+\\
+Jenkins peut être couplés avec divers programmes tels que Git, nagios ou encore maven.
+\\
+Il peut être étendu afin de pouvoir assurer le cycle de vie complet d'une application.
+\\
+Afin de permettre cette extension, des programmes tels qu'Ansible ou puppet peuvent être utilisés.
 \\
 Grâce à Jenkins, des outils de contrôle de qualité de cote mais aussi des tests d'intégrations, de performance ou encore des tests de fonctionnement peuvent être effectués.
 \\
@@ -401,7 +409,11 @@ L'installation de Jenkins sur Windows peut se faire de 2 manières :
 
 Jenkins peut être installé de plusieurs manières pour n'importe quel système d'exploitation
 \subsection{Conclusion}
-Malgré d'énormes ressemblances avec Rundeck, Jenkins est un outil d'intégration continue pour la construction automatique de paquets.
+Jenkins est un outil d'intégration continue écrit en JAVA permettant d'automatiser les processus de compilation, de construction et de test d'un programme.
+\\
+Étant un dérivé d'Hudson, Jenkins présente de nombreux avantages par rapport à son prédécesseur.
+\\
+Son principe de fonctionnement est simple et peut être utilisé dans pratiquement tout les domaines de développement.
 
 \section{Buildbot}
 
@@ -471,6 +483,10 @@ Tout comme Jenkins, Buildbot peut être installé de différentes manières :
 
 \subsection{Conclusion}
 Buildbot est un framework d'intégration continue présentant beaucoup de similitudes avec Jenkins. Il reste néanmoins dédié à un certain domaine : le développement Web.
+\\
+Ce framework est également écrit en JAVA et peut être également étendu grâce à l'aide d'autres logiciels.
+\\
+Buildbot peut être vu comme le jumeau de Jenkins mais en étant plus orienté au développement web
 
 \section{Ansible Tower}
 
@@ -547,6 +563,10 @@ Pour installer ou mettre à jour Tower, il suffit de modifier le fichier d'inven
 
 \subsection{Conclusion}
 Ansible Tower va permettre une meilleure gestion de ce que propose Ansible ainsi qu'une prise en main plus simple et rapide.
+\\
+La possibilité d'exécuter des commandes de manière graphique séduit un grand nombre d'utilisateur à travers le monde.
+\\
+Sa possibilité à être couplé à d'autres logiciels tels que Rundeck ou encore Jenkins, est un gros avantage
 
 \section{JobScheduler}
 
@@ -574,9 +594,15 @@ Ce programme est présent sur certaines plateformes telles que Windows Server 20
 \subsection{Historique et versions}
 JobScheduler sort pour la première fois en 2005, la dernière version stable est la 1.13.3 datée du 4 février 2020.
 \\
-Plusieurs versions majeures ont vues le jour avant la version 1.13.3 : il s'agit des versions 1.9 le 30-04-2015, la 1.10 le 15-09-2015, 1.11 le 20-03-2017 ainsi que la version 1.12 le 21-12-2017.
-\\
-La première version de la 1.13 est sortie le 29-08-2019
+Plusieurs versions majeures ont vues le jour avant la version 1.13.3 :
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Version & 1.9        & 1.10       & 1.11       & 1.12       & 1.13       \\ \hline
+Date    & 30-04-2015 & 15-09-2015 & 20-03-2017 & 21-12-2017 & 29-08-2019 \\ \hline
+\end{tabular}
+\end{center}
 
 \subsection{Contexte d'utilisation}
 Ce logiciel est utilisé pour lancer des fichiers exécutables ainsi que des scripts shells. Il permet également d'exécuter, de manière automatique, des procédures sur des bases de données. 
@@ -701,8 +727,9 @@ Néanmoins les éléments à configurer restent les mêmes
 La génération d'un fichier d'installation silencieuse se fait par l'intermédiaire d'une instance Arii
 
 \subsection{Conclusion}
-JobScheduler est un ordonnanceur de tâches proposant des services de gestion pour les bases de données et les clouds. Il est modulaire et possède un fonctionnement simple
-
+JobScheduler est un ordonnanceur de tâches proposant des services de gestion pour les bases de données et les clouds. Il est modulaire et possède un fonctionnement simple.
+\\
+Malgré qu'aux premiers abords, JobScheduler soit présenté comme un programme avec un fonctionnement complexe, il se révèle très simple et très accessible.
 
 \section{Rundeck}
 
@@ -759,7 +786,9 @@ Rundeck, par défaut, fonctionne avec sa propre base de données, une interface 
 \\
 Toutefois, la base de données embarquée de Rundeck est dépourvue de systèmes de sécurité optimale, il est recommandé d'utiliser une base de données spécifique.
 \\
-Cette base de données est de type H2, c'est à dire que c'est une base de données de très petites taille et écrite en JAVA 
+Cette base de données est de type H2, c'est à dire que c'est une base de données de très petites taille et écrite en JAVA.
+\\
+La base de données de Rundeck permet de stocker les les clés et passphrases mais également les tokens des utilisateurs ainsi que les logs des jobs afin de constituer un historique de ces derniers.
 
 \subsection{Fonctionnalités}
 
@@ -768,6 +797,18 @@ Rundeck possède une grande gamme de fonctionnalités qui permettent à l'utilis
 Rundeck propose également diverses fonctionnalités notamment l'exécution de commandes/tâches à distance
 \\
 Rundeck est également très modulable. En effet, Rundeck utilise une base de données embarquée pour l'enregistrement de données telles que les jobs, les clés SSH et les utilisateurs qui ont accès à Rundeck.
+\\
+Rundeck ne possède pas d'agents contrairement à d'autres programmes. En revanche, une fonctionnalité présente sur Rundeck Entreprise permet à ce dernier d'autoriser les clusters à transmettre des jobs à d'autres clusters.
+\\
+Cette fonctionnalité n'est valable que sur Rundeck Entreprise.
+\\
+L'interface Web de Rundeck propose un suivi sur les jobs et permet à l'utilisateur de gérer les jobs.
+\\
+Grâce à cette interface, l'utilisateur peut consulter le statuts du job
+\\
+Toutefois il est possible d'intégrer git via un plugin. Rundeck propose également un intégration de script simple.
+\\
+En effet, il est possible d'intégrer des script déjà préparer. Cette opération ce fait à la création des jobs via l'interface graphique.
 
 \subsection{Installation}
 L'installation de Rundeck est très simple, il est recommandé de l'installer sur CentOS afin de pouvoir utiliser Rundeck de manière optimale. Il est également possible d'installer ce programme sur Windows. 
@@ -776,6 +817,10 @@ L'installation de Rundeck est très simple, il est recommandé de l'installer su
 
 \subsection{Conclusion}
 Rundeck est un orchestrateur de tâches permettant la maintenances de serveurs à distance. Il peut être couplé avec une base de données externe et également à d'autres programmes tel qu'Ansible.
+\\
+Son principe de fonctionnement est très basique et présente de nombreuses similitudes avec JobScheduler.
+\\
+Rundeck reste orienté vers la gestion des ordinateurs et serveurs, tout comme Ansible
 
 \newpage
 \section{Tableaux synthétiques}
@@ -1428,7 +1473,12 @@ Cette configuration est identique pour chaque ordinateur/serveur que l'on souhai
 \end{itemize}
 \vspace{0.5cm}
 La définition d'un node dans le format YAML ou JSON diffère légèrement du format XML.
-
+\\
+Bien que l'attribut "tags" soit facultatif, il permet d'identifier une ou plusieurs machines. Certains attributs peuvent également être identique tels que "osFamily", "osArch" ou "osVersion". 
+\\
+Ces attributs peuvent créer la confusion lors de la recherche d'une machine spécifique. De plus, ce sont des attributs qui peuvent être défini par défaut par Rundeck ou alors par l'utilisateur. C
+\\
+Ces noms sont relativement longs. Les tags permettent une identification rapide d'une machine.
 \footnotetext[1]{RAPPEL : node = noeuds ou serveurs distant}
 
 \subsubsection{Clés SSH}
@@ -1543,6 +1593,8 @@ Un utilisateur peut avoir plusieurs "tokens" mais un token ne peut pas être cr�
 Ces tokens ont une durée de vie définie par l'administrateur ou l'utilisateur lui-même.
 \\
 De manière imagée, un token correspond à un passeport.
+\\
+La gestion des utilisateurs peut être faite via un annuaire LDAP
 
 \section{Rundeck et Ansible}
 Rundeck à la particularité de pouvoir fonctionner avec Ansible. Par ailleurs, le couplage de ces 2 programmes est très populaire dans la communauté de l'administration et gestion de systèmes. 
@@ -1562,7 +1614,7 @@ Il est possible, comme pour beaucoup d'autre logiciel d'automatisation de proces
 \\
 Un annuaire LDAP contient les noms, prénoms, mots de passe ainsi que toutes autres informations complémentaires pour un utilisateur.
 \\
-Cet annuaire est uniquement destiné à gérer les données sur les utilisateurs
+\textbf{Cet annuaire LDAP est uniquement destiné à gérer les données sur les utilisateurs}
 \\
 Le principe est de connecté un annuaire à un serveur de gestion, par exemple Rundeck, Ansible ou encore Jenkins.
 \\
