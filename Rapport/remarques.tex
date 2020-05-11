@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tgheros}
+\usepackage{listings}
+\usepackage{forest}
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{Annexe Projet Tuteuré Rundeck}
+\author{HEPPNER Tristan}
+\date{Mai 2020}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+Cette annexe a pour but de fournir des informations additionnelles à celles présentes dans le rapport.
+\\
+Un chapitre est dédié aux différentes remarques et un chapitre consacré aux questions.
+
+\section{Remarques}
+\subsection{Points forts des solutions}
+Les points forts sont organisés sur la base de notre travail mais également sur les avis utilisateurs.
+\\
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Solutions     & Statut      & Type      & Difficulté & Modulable & Utilisation \\ \hline
+Cron          & Open Source & Daemon    & Simple     & Non       & P.E.A.T     \\ \hline
+Jenkins       & Open Source & Logiciel  & Moyen      & Oui       & C.I         \\ \hline
+Buildbot      & Open Source & Framework & Moyen      & Oui       & C.I WEB     \\ \hline
+Ansible Tower & Open Source & API       & Simple     & Oui       & P.E.A.T     \\ \hline
+JobScheduler  & Open Source & Logiciel  & Moyen      & Oui       & P.E.A.T     \\ \hline
+Rundeck       & Open Source & Logiciel  & Simple     & Oui       & P.E.A.T     \\ \hline
+\end{tabular}
+\vspace{0.5cm}
+\\
+Informations sur les acronymes:
+\begin{itemize}
+    \item P.E.A.T : Planification et exécution automatique de tâches
+    \item C.I : Continuous Intégration (Intégration)
+\end{itemize}
+\vspace{0.5cm}
+Le niveau de difficulté correspond à la difficulté d'utilisation du logiciel.
+\\
+Les niveaux de difficultés sont définis en fonction du point de vue des utilisateurs. Si le niveau de difficulté est \textbf{simple}, cela signifie que n'importe qui peut l'utiliser. Or si ce niveau est \textbf{moyen} ou \textbf{difficile}, cela signifie que seuls les personnes ayant une bonne connaissance du système.
+\\
+Le niveau de difficulté n'exclus pas une lecture de la documentation avant l'utilisation
+\\
+Chaque solution, à l'exception de cron, possède une variante Entreprise. Dans certains cas, ces variantes Entreprises peuvent être payante
+
+\subsection{Points forts des solutions}
+Les points faibles sont organisés sur la base de notre travail mais également sur les avis utilisateurs.
+\\
+Cron : Pas d'exécution à distance, non modulable
+\\
+Jenkins : Ne suis pas toute la durée de vie d'une application, peu de support, peut être compliqué lors de la première prise en main.
+\\
+Buildbot : Ne suis pas toute la durée de vie d'une application, difficulté pour débugger, documentation mal organisé
+\\
+Ansible Tower : Fonctionnalité de planification limitée, interface utilisateur confuse, fonctionnalités limités en matières de réseau.
+\\
+JobScheduler : Peut s'avérer difficile à prendre en main, n'est pas conçu pour des infrastructures de grandes envergures, impression d'un logiciel âgé
+\\
+Rundeck : Prix des licences, non adaptés aux workflows complexes, bug d'affichage avec les versions de Java, pas de partage de données entre projets
+    
+\section{Questions}
+
+\subsection{Workers}
+A l'inverse de Jenkins, il n'est possible de mettre en place des workers avec Rundeck. En effet, Rundeck lance et exécute ses jobs via une connexion SSH. De plus, la charge appliquée par Rundeck sur les machines n'est pas énorme.
+\\
+Cependant, il possible de mettre en place des workers pour des clusters, cela permet de repartir la charge de manière équivalente sur chaque machine.
+
+\subsection{Historisation / Intégration}
+
+
+\subsection{Tags / rôles / classes}
+Lors de la déclaration de nouveaux noeuds, il est nécessaire d'attribuer des tags sur ces derniers. Les tags permettent une meilleure identification du/des noeuds. Plusieurs noeuds peuvent avoir le même tags.
+\\
+Les rôles sont uniquement réservés à Ansible : sans l'intégration d'Ansible à Rundeck, il est impossible d'attribuer des rôles aux noeuds.
+\\
+Il est possible d'intégrer Ansible par l'intermédiaire d'un plugin. L'avantage de cette intégration est de pouvoir utiliser l'intégralité des fonctionnalités d'Ansible au travers de Rundeck. Cela marche également dans le sens inverse.
+
+\subsection{Notifications}
+Rundeck propose 2 systèmes de notifications : via un mail ou via un webhook.
+\\
+Peu importe la manière choisit, la notification contient les mêmes informations, à savoir :
+\begin{itemize}
+    \item Informations relatives à la machine
+    \item Nom du job exécuté
+    \item Statut du job et steps exécuté (réussite/échec/démarrage/nouvelle tentative)
+    \item Heure d'exécution
+\end{itemize}
+
+Pour rappel :
+\textbf{Webhook} : Un webhook contiendra les mêmes informations qu'un mail et se feront au travers d'un rappel HTTP. Cela peut être traduit par une notification en temps réel 
+
+\subsection{Dépendances}
+Un job est composé de plusieurs step, un step peut correspondre à un script ou une ligne de commande. Plusieurs steps peuvent se trouver dans un seul job : un job contenant une step de mise à jour, une step de nettoyage ainsi qu'une step de sauvegarde.
+\\
+Rundeck propose un paramétrage complet de ces steps, partant de son écriture jusqu'à son nombre d'essais en passant par le paramétrage de l'heure d'exécution.
+\\
+Rundeck demande à l'administrateur le nombre de tentatives autorisées avant de passer au step suivant.
+\\
+Rundeck continue l'exécution du job malgré l'échec d'une step. Cependant, il est possible de dire à Rundeck d'arrêter l'exécution du job si une step échoue.
+\\
+Toutes ces options sont modifiables lors de la création d'un job. En cas d'erreur, le lanceur du job sera notifié de l'échec.
+
+\subsection{LDAP}
+L'implémentation d'un annuaire LDAP a été étudié sous tous ses angles afin d'en saisir les subtilités mais n'a pu être mise en place.
+
+\subsection{Sauvegarde}
+Afin de sauvegarder la machine de Rundeck, il suffit de créer un job qui s'exécutera sur la machine qui contient Rundeck. Ce copie peut se faire sur la machine ou alors en copiant les données vers une autre machine.
+
+\subsection{Droits d'accès}
+Il est possible d'attribuer des droits pour chaque utilisateurs. Il existe 4 types de droits déclarer par défaut par Rundeck : 
+\begin{itemize}
+    \item job-runner : lancement des jobs
+    \item job-writer : création de jobs
+    \item job-reader : Lecture de jobs
+    \item job-viewer : Vue des jobs
+\end{itemize}
+Cependant, il est possible de déclarer de nouveaux droits grâce au fichier acl.policy. Ce fichier contient d'autres droits et permet également d'en définir de nouveaux
+\end{document}
